@@ -1,0 +1,195 @@
+;; #state features
+21
++at[package_0,city_loc_1]
++at[package_1,city_loc_1]
++at[truck_0,city_loc_2]
++capacity[truck_0,capacity_1]
++at[truck_0,city_loc_1]
++at[truck_0,city_loc_0]
++in[package_0,truck_0]
++capacity[truck_0,capacity_0]
++in[package_1,truck_0]
++at[package_0,city_loc_0]
++at[package_1,city_loc_2]
+prefpos0
+prefpos1
+prefpos2
+prefpos3
+prefpos4
+prefpos5
+prefpos6
+prefpos7
+prefpos8
+prefpos9
+
+;; Mutex Groups
+12
+0 0 +at[package_0,city_loc_1]
+1 1 +at[package_1,city_loc_1]
+2 2 +at[truck_0,city_loc_2]
+3 3 +capacity[truck_0,capacity_1]
+4 4 +at[truck_0,city_loc_1]
+5 5 +at[truck_0,city_loc_0]
+6 6 +in[package_0,truck_0]
+7 7 +capacity[truck_0,capacity_0]
+8 8 +in[package_1,truck_0]
+9 9 +at[package_0,city_loc_0]
+10 10 +at[package_1,city_loc_2]
+11 20 prefixOrdering
+
+;; further strict Mutex Groups
+0
+
+;; further non strict Mutex Groups
+0
+
+;; known invariants
+0
+
+;; Actions
+8
+1
+2 11 -1
+0 4  0 12 -1
+0 2  0 11 -1
+1
+0 3 4 12 -1
+0 7  0 6  0 13 -1
+0 3  0 0  0 12 -1
+1
+4 13 -1
+0 5  0 14 -1
+0 4  0 13 -1
+1
+5 6 7 14 -1
+0 3  0 9  0 15 -1
+0 7  0 6  0 14 -1
+1
+5 15 -1
+0 4  0 16 -1
+0 5  0 15 -1
+1
+1 3 4 16 -1
+0 7  0 8  0 17 -1
+0 3  0 1  0 16 -1
+1
+4 17 -1
+0 2  0 18 -1
+0 4  0 17 -1
+1
+8 2 7 18 -1
+0 3  0 10  0 19 -1
+0 7  0 8  0 18 -1
+
+;; initial state
+3 2 0 1 11 -1
+
+;; goal
+19 -1
+
+;; tasks (primitive and abstract)
+22
+0 drive[truck_0,city_loc_2,city_loc_1]
+0 pick_up[truck_0,city_loc_1,package_0,capacity_0,capacity_1]
+0 drive[truck_0,city_loc_1,city_loc_0]
+0 drop[truck_0,city_loc_0,package_0,capacity_0,capacity_1]
+0 drive[truck_0,city_loc_0,city_loc_1]
+0 pick_up[truck_0,city_loc_1,package_1,capacity_0,capacity_1]
+0 drive[truck_0,city_loc_1,city_loc_2]
+0 drop[truck_0,city_loc_2,package_1,capacity_0,capacity_1]
+1 __top[]
+1 m_deliver_ordering_0_splitted_1[truck_0,package_1]
+1 get_to[truck_0,city_loc_1]
+1 get_to[truck_0,city_loc_0]
+1 get_to[truck_0,city_loc_2]
+1 m_deliver_ordering_0_splitted_1[truck_0,package_0]
+1 <abs>drop[truck_0,city_loc_2,package_1,capacity_0,capacity_1]
+1 <abs>pick_up[truck_0,city_loc_1,package_1,capacity_0,capacity_1]
+1 <abs>drive[truck_0,city_loc_2,city_loc_1]
+1 <abs>drive[truck_0,city_loc_0,city_loc_1]
+1 <abs>drive[truck_0,city_loc_1,city_loc_0]
+1 <abs>drive[truck_0,city_loc_1,city_loc_2]
+1 <abs>drop[truck_0,city_loc_0,package_0,capacity_0,capacity_1]
+1 <abs>pick_up[truck_0,city_loc_1,package_0,capacity_0,capacity_1]
+
+;; initial abstract task
+8
+
+;; methods
+19
+<<<<__top_method;deliver[package_1,city_loc_2];m_deliver_ordering_0;1;0,-1,-2,-3>;unload[truck_0,city_loc_2,package_1];m_unload_ordering_0;3;0,1,2,-1>;deliver[package_0,city_loc_0];m_deliver_ordering_0;0;-1,-2,-3,1,2,3>;unload[truck_0,city_loc_0,package_0];m_unload_ordering_0;2;0,1,-1,3,4,5>
+8
+13 11 20 9 12 14 -1
+0 1 1 2 2 3 3 4 4 5 -1
+<_splitting_method_m_deliver_ordering_0_splitted_1;load[truck_0,city_loc_1,package_1];m_load_ordering_0;1;0,-1>
+9
+10 15 -1
+0 1 -1
+m_drive_to_ordering_0
+10
+16 -1
+-1
+m_drive_to_ordering_0
+10
+17 -1
+-1
+m_drive_to_via_ordering_0
+10
+11 17 -1
+0 1 -1
+m_drive_to_ordering_0
+11
+18 -1
+-1
+m_drive_to_via_ordering_0
+11
+10 18 -1
+0 1 -1
+m_drive_to_via_ordering_0
+10
+12 16 -1
+0 1 -1
+m_drive_to_ordering_0
+12
+19 -1
+-1
+m_drive_to_via_ordering_0
+12
+10 19 -1
+0 1 -1
+<_splitting_method_m_deliver_ordering_0_splitted_1;load[truck_0,city_loc_1,package_0];m_load_ordering_0;1;0,-1>
+13
+10 21 -1
+0 1 -1
+__<method2pref0>drive[truck_0,city_loc_2,city_loc_1]
+16
+0 -1
+-1
+__<method2pref1>pick_up[truck_0,city_loc_1,package_0,capacity_0,capacity_1]
+21
+1 -1
+-1
+__<method2pref2>drive[truck_0,city_loc_1,city_loc_0]
+18
+2 -1
+-1
+__<method2pref3>drop[truck_0,city_loc_0,package_0,capacity_0,capacity_1]
+20
+3 -1
+-1
+__<method2pref4>drive[truck_0,city_loc_0,city_loc_1]
+17
+4 -1
+-1
+__<method2pref5>pick_up[truck_0,city_loc_1,package_1,capacity_0,capacity_1]
+15
+5 -1
+-1
+__<method2pref6>drive[truck_0,city_loc_1,city_loc_2]
+19
+6 -1
+-1
+__<method2pref7>drop[truck_0,city_loc_2,package_1,capacity_0,capacity_1]
+14
+7 -1
+-1

@@ -1,0 +1,71 @@
+Random seed: 42
+- State has 21 bits divided into 12 mutex groups.
+- Domain contains 8 actions.
+- Domain contains 22 tasks.
+- Domain contains 19 methods.
+- The initial state contains 5 set bits.
+- The initial task is "__top[]".
+- State-based goal contains 1 bits.
+- Instance is totally-ordered: yes
+- Instance has unique paths: yes
+- Instance is parallel sequences: yes
+Calculate SCCs...
+- Number of SCCs: 20
+- The problem is cyclic
+- Number of cyclic SCCs: 1
+- Number of cyclic SCCs of size 1: 0
+Heuristic: RC encoding
+Computing RC model ... 
+- Inner heuristic: FF
+- using priority queue as fringe.
+Time limit: 1800 seconds
+- Visited list allows deletion of search nodes: true
+Search Configuration
+- Using JAIR 2019 progression algorithm
+- Search is stopped after first solution is found.
+- Greedy Search
+Search Results
+- Search time 0.001 seconds
+- Visited list time 0.000118 seconds
+- Visited list inserts 24
+- Visited list pruned 0
+- Visited list contains 24
+- Visited list hash collisions 0
+- Generated 32 search nodes
+  Calculated heuristic for 24 nodes
+  One modifications 8
+  Effectless actions 0
+- including 8 one modification actions
+- including 0 one modification methods
+- and       0 progressions of effectless actions
+- Generated 24000 nodes per second
+- Final fringe contains 3 nodes
+- Status: Solved
+- Found solution of length 23
+- Total costs of actions: 8
+==>
+7 drive[truck_0,city_loc_2,city_loc_1]
+9 pick_up[truck_0,city_loc_1,package_0,capacity_0,capacity_1]
+13 drive[truck_0,city_loc_1,city_loc_0]
+15 drop[truck_0,city_loc_0,package_0,capacity_0,capacity_1]
+22 drive[truck_0,city_loc_0,city_loc_1]
+24 pick_up[truck_0,city_loc_1,package_1,capacity_0,capacity_1]
+28 drive[truck_0,city_loc_1,city_loc_2]
+30 drop[truck_0,city_loc_2,package_1,capacity_0,capacity_1]
+root 0
+29 <abs>drop[truck_0,city_loc_2,package_1,capacity_0,capacity_1] -> __<method2pref7>drop[truck_0,city_loc_2,package_1,capacity_0,capacity_1] 30
+27 <abs>drive[truck_0,city_loc_1,city_loc_2] -> __<method2pref6>drive[truck_0,city_loc_1,city_loc_2] 28
+25 get_to[truck_0,city_loc_2] -> m_drive_to_ordering_0 27
+23 <abs>pick_up[truck_0,city_loc_1,package_1,capacity_0,capacity_1] -> __<method2pref5>pick_up[truck_0,city_loc_1,package_1,capacity_0,capacity_1] 24
+21 <abs>drive[truck_0,city_loc_0,city_loc_1] -> __<method2pref4>drive[truck_0,city_loc_0,city_loc_1] 22
+18 get_to[truck_0,city_loc_1] -> m_drive_to_ordering_0 21
+16 m_deliver_ordering_0_splitted_1[truck_0,package_1] -> <_splitting_method_m_deliver_ordering_0_splitted_1;load[truck_0,city_loc_1,package_1];m_load_ordering_0;1;0,-1> 18 23
+14 <abs>drop[truck_0,city_loc_0,package_0,capacity_0,capacity_1] -> __<method2pref3>drop[truck_0,city_loc_0,package_0,capacity_0,capacity_1] 15
+12 <abs>drive[truck_0,city_loc_1,city_loc_0] -> __<method2pref2>drive[truck_0,city_loc_1,city_loc_0] 13
+10 get_to[truck_0,city_loc_0] -> m_drive_to_ordering_0 12
+8 <abs>pick_up[truck_0,city_loc_1,package_0,capacity_0,capacity_1] -> __<method2pref1>pick_up[truck_0,city_loc_1,package_0,capacity_0,capacity_1] 9
+6 <abs>drive[truck_0,city_loc_2,city_loc_1] -> __<method2pref0>drive[truck_0,city_loc_2,city_loc_1] 7
+2 get_to[truck_0,city_loc_1] -> m_drive_to_ordering_0 6
+1 m_deliver_ordering_0_splitted_1[truck_0,package_0] -> <_splitting_method_m_deliver_ordering_0_splitted_1;load[truck_0,city_loc_1,package_0];m_load_ordering_0;1;0,-1> 2 8
+0 __top[] -> <<<<__top_method;deliver[package_1,city_loc_2];m_deliver_ordering_0;1;0,-1,-2,-3>;unload[truck_0,city_loc_2,package_1];m_unload_ordering_0;3;0,1,2,-1>;deliver[package_0,city_loc_0];m_deliver_ordering_0;0;-1,-2,-3,1,2,3>;unload[truck_0,city_loc_0,package_0];m_unload_ordering_0;2;0,1,-1,3,4,5> 1 10 14 16 25 29
+<==
