@@ -23,38 +23,35 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
 
     std::ifstream fIn(sasPlan);
 
-    vector<int> prefix;
-    set<int> distinctActions;
-    StringUtil su;
     vector<string> plan;
     std::string line;
+
+    // read plan from file
     while (std::getline(fIn, line)) {
         int i = line.find(")(");
-        while(i != std::string::npos) {
+        while (i != std::string::npos) { // split lines with multiple actions in it
             string action = line.substr(0, i + 1);
-            line = line.substr(i+1, line.length());
+            line = line.substr(i + 1, line.length());
             plan.push_back(action);
             i = line.find(")(");
         }
         plan.push_back(line);
     }
-    for(int i = 0; i < plan.size(); i++) {
-        line = plan[i];
-        //cout << line << endl;
-        if (line.rfind(';') == 0) continue;
-        line = line.substr(1, line.length() - 2);
-        if (line.rfind("epsilon") == 0) continue;
 
-        //cout << line << endl;
+    // generate set of distinct actions and sequence of plan steps
+    vector<int> prefix;
+    set<int> distinctActions;
+    for (int i = 0; i < plan.size(); i++) {
+        line = plan[i];
+        if (line.rfind(';') == 0) continue; // skip comments
+        line = line.substr(1, line.length() - 2);
+        if (line.rfind("epsilon") == 0) continue; // skip epsilon actions from TOAD
+
         bool found = false;
         for (int i = 0; i < htn->numTasks; i++) {
             if (line.compare(htn->taskNames[i]) == 0) {
                 prefix.push_back(i);
                 distinctActions.insert(i);
-                if(found) {
-                    cout << "found task twice: " << htn->taskNames[i] << endl;
-                    exit(-1);
-                }
                 found = true;
                 break;
             }
@@ -66,15 +63,18 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     }
     fIn.close();
 
+    /*
+     * bottom-up reachability
+     */
     cout << "- detecting unreachable tasks bottom-up" << endl;
     set<int> *unreachableT = new set<int>;
     set<int> *unreachableM = new set<int>;
     set<int> *newlyUnrT = new set<int>;
     set<int> *newlyUnrM = new set<int>;
 
-    // methods for tasks
-    int* mForT = new int[htn->numTasks];
-    for(int i = htn->numActions; i < htn->numTasks; i++) {
+    // how many methods are available for each task?
+    int *mForT = new int[htn->numTasks];
+    for (int i = htn->numActions; i < htn->numTasks; i++) {
         mForT[i] = htn->numMethodsForTask[i];
     }
 
@@ -87,7 +87,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     while (!newlyUnrT->empty()) {
         for (int t : *newlyUnrT) {
             for (int mi = 0; mi < htn->stToMethodNum[t]; mi++) {
-                int m = htn->stToMethod[t][mi];
+                int m = htn->stToMethod[t][mi]; // this method contains an unreachable task -> not needed
                 if (unreachableM->find(m) == unreachableM->end()) {
                     newlyUnrM->insert(m);
                     unreachableM->insert(m);
@@ -98,16 +98,18 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         for (int m : *newlyUnrM) {
             int dt = htn->decomposedTask[m];
             mForT[dt]--;
-            if (mForT[dt] == 0) {
+            if (mForT[dt] == 0) { // when there is no method left for a certain task, the task is not needed
                 newlyUnrT->insert(dt);
                 unreachableT->insert(dt);
             }
         }
         newlyUnrM->clear();
     }
-    delete [] mForT;
+    delete[] mForT;
 
-    // test top-down reachability
+    /*
+     * top-down reachability
+     */
     cout << "- detecting top-down reachable tasks" << endl;
     set<int> *reachableT = new set<int>;
     set<int> *reachableM = new set<int>;
@@ -132,6 +134,11 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
                 }
             }
         }
+    }
+
+    if(reachableT->find(htn->initialTask) == reachableT->end()) {
+        cout << "Verification problem proven UNSOLVABLE via reachability analysis." << endl;
+        exit(0);
     }
 
     cout << "- writing verify problem" << endl;
