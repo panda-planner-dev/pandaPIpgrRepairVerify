@@ -1,9 +1,9 @@
 //
-// Created by dh on 28.10.20.
+// Created by Daniel Höller on 28.10.20.
 //
 
-#ifndef TOSTRIPSAPPROXIMATION_GROUNDVERIFIER_H
-#define TOSTRIPSAPPROXIMATION_GROUNDVERIFIER_H
+#ifndef GROUNDVERIFIER_H
+#define GROUNDVERIFIER_H
 
 
 #include "../htnModel/Model.h"
@@ -17,4 +17,4 @@ public:
 };
 
 
-#endif //TOSTRIPSAPPROXIMATION_GROUNDVERIFIER_H
+#endif //GROUNDVERIFIER_H

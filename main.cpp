@@ -10,7 +10,8 @@ using namespace progression;
 
 int main(int argc, char *argv[]) {
 
-    std::cout << "HTN Plan Verification as HTN Planning." << std::endl;
+    cout << "HTN Plan Verification as HTN Planning." << endl;
+    cout << "verificationAsPlanning pandagrounding sasplan" << endl;
 
 #ifndef NDEBUG
     cout
@@ -20,7 +21,6 @@ int main(int argc, char *argv[]) {
     string s;
     timeval tp;
     s = argv[1];
-    cout << "verificationAsPlanning pandagrounding sasplan" << endl;
     gettimeofday(&tp, NULL);
     long startT = tp.tv_sec * 1000 + tp.tv_usec / 1000;
 

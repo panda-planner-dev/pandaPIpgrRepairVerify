@@ -2,7 +2,7 @@
  * IntUtil.h
  *
  *  Created on: 30.01.2020
- *      Author: dh
+ *      Author: Daniel Höller
  */
 
 #ifndef INTDATASTRUCTURES_INTUTIL_H_

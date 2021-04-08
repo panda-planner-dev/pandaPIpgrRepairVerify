@@ -1,5 +1,5 @@
 /*
- * HtnModel.cpp
+ * Model.cpp
  *
  *  Created on: 05.09.2017
  *      Author: Daniel Höller
