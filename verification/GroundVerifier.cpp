@@ -79,6 +79,12 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     }
 
     for (int a = 0; a < htn->numActions; a++) {
+
+        // technical actions should always be reachable, e.g. method preconditions
+        if (htn->taskNames[a].rfind("__") == 0) { // these actions start with two underscores
+            continue;
+        }
+
         if (distinctActions.find(a) == distinctActions.end()) {
             newlyUnrT->insert(a);
             unreachableT->insert(a);
