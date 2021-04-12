@@ -151,14 +151,28 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     // prepare things
     int numNewBits = prefix.size() + 2;
 
+    set<int> technicalActions;
+    for (int t : *reachableT) {
+        string actionName = htn->taskNames[t];
+        if (htn->taskNames[t].rfind("__") == 0) { // these actions start with two underscores
+            technicalActions.insert(t);
+        }
+    }
+
     // new task structure:
-    // pppccccnnn
+    // ppptttccccnnn
     // - p: copies of actions, one for each action in prefix (as many as there are actions in prefix)
-    // - c: abstract tasks contained in original
+    // - t: technical actions that are kept (e.g. method precs)
+    // - c: abstract tasks contained in original model
     // - n: newly introduced abstract tasks (as many as there are distinct tasks in prefix)
 
     map<int, int> old2new;
     int current = prefix.size();
+    for (int i = 0; i < htn->numActions; i++) {
+        if ((technicalActions.find(i) != technicalActions.end()) && (reachableT->find(i) != reachableT->end())) {
+            old2new[i] = current++;
+        }
+    }
     for (int i = htn->numActions; i < htn->numTasks; i++) {
         if (reachableT->find(i) != reachableT->end()) {
             old2new[i] = current++;
@@ -214,9 +228,14 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     }
 
     fOut << endl << ";; Actions" << endl;
-    fOut << prefix.size() << endl;
+    fOut << (prefix.size() + technicalActions.size()) << endl;
     for (int i = 0; i < prefix.size(); i++) {
         writeAction(htn, fOut, prefix[i], first + i, first + i + 1);
+    }
+    for (int t : technicalActions) {
+        if (reachableT->find(t) != reachableT->end()) {
+            writeAction(htn, fOut, t, -1, -1);
+        }
     }
 
     fOut << endl << ";; initial state" << endl;
@@ -296,7 +315,9 @@ void GroundVerifier::writeAction(Model *htn, ofstream &fOut, int iAction, int pF
     for (int j = 0; j < htn->numPrecs[iAction]; j++) {
         fOut << htn->precLists[iAction][j] << " ";
     }
-    fOut << pFrom << " "; // add precondition
+    if (pFrom >= 0) {
+        fOut << pFrom << " "; // add precondition
+    }
     fOut << "-1" << endl;
 
     for (int j = 0; j < htn->numAdds[iAction]; j++) {
@@ -312,6 +333,8 @@ void GroundVerifier::writeAction(Model *htn, ofstream &fOut, int iAction, int pF
     for (int j = 0; j < htn->numDels[iAction]; j++) {
         fOut << "0 " << htn->delLists[iAction][j] << "  ";
     }
-    fOut << "0 " << pFrom << " "; // add del effect
+    if (pFrom >= 0) {
+        fOut << "0 " << pFrom << " "; // add del effect
+    }
     fOut << "-1" << endl;
 }
