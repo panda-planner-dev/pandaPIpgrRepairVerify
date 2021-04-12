@@ -154,7 +154,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     set<int> technicalActions;
     for (int t : *reachableT) {
         string actionName = htn->taskNames[t];
-        if (htn->taskNames[t].rfind("__") == 0) { // these actions start with two underscores
+	 	if (htn->taskNames[t].rfind("__") == 0 && t < htn->numActions) { // these actions start with two underscores
             technicalActions.insert(t);
         }
     }
@@ -256,6 +256,10 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         fOut << "0 " << htn->taskNames[prefix[i]] << endl;
         check++;
     }
+    for (int t : technicalActions) {
+        fOut << "0 " << htn->taskNames[t] << endl;
+		check++;
+    }
     for (int i = htn->numActions; i < htn->numTasks; i++) {
         if (reachableT->find(i) != reachableT->end()) {
             fOut << "1 " << htn->taskNames[i] << endl;
@@ -321,7 +325,9 @@ void GroundVerifier::writeAction(Model *htn, ofstream &fOut, int iAction, int pF
     for (int j = 0; j < htn->numAdds[iAction]; j++) {
         fOut << "0 " << htn->addLists[iAction][j] << "  ";
     }
-    fOut << "0 " << pTo << " "; // add add effect
+	if (pTo >= 0){
+    	fOut << "0 " << pTo << " "; // add add effect
+	}
     fOut << "-1" << endl;
     if ((htn->numConditionalAdds[iAction] > 0) || (htn->numConditionalDels[iAction] > 0)) {
         cout << "Conditional effects not supported" << endl;
