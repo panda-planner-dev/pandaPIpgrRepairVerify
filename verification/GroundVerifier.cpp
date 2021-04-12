@@ -169,7 +169,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     map<int, int> old2new;
     int current = prefix.size();
     for (int i = 0; i < htn->numActions; i++) {
-        if ((technicalActions.find(i) != technicalActions.end()) && (reachableT->find(i) != reachableT->end())) {
+        if (technicalActions.find(i) != technicalActions.end()) {
             old2new[i] = current++;
         }
     }
