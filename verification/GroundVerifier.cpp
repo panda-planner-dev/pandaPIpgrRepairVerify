@@ -233,9 +233,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         writeAction(htn, fOut, prefix[i], first + i, first + i + 1);
     }
     for (int t : technicalActions) {
-        if (reachableT->find(t) != reachableT->end()) {
-            writeAction(htn, fOut, t, -1, -1);
-        }
+        writeAction(htn, fOut, t, -1, -1);
     }
 
     fOut << endl << ";; initial state" << endl;
