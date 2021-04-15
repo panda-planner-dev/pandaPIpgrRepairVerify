@@ -6,6 +6,7 @@
 #include <map>
 #include "GroundVerifier.h"
 #include <cassert>
+#include <algorithm>
 
 void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     //
@@ -48,13 +49,25 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         if (line.rfind("epsilon") == 0) continue; // skip epsilon actions from TOAD
 
         bool found = false;
+		string lower_line = line;
+		transform(lower_line.begin(), lower_line.end(), lower_line.begin(), [](unsigned char c){ if (c == '-') return int('_'); return tolower(c); });
         for (int i = 0; i < htn->numTasks; i++) {
             if (line.compare(htn->taskNames[i]) == 0) {
                 prefix.push_back(i);
                 distinctActions.insert(i);
                 found = true;
                 break;
-            }
+			} else {
+				string lower_t = htn->taskNames[i];
+				transform(lower_t.begin(), lower_t.end(), lower_t.begin(), [](unsigned char c){ if (c == '-') return int('_'); return tolower(c); });
+		     	if (lower_line.compare(lower_t) == 0) {
+        	        prefix.push_back(i);
+            	  	distinctActions.insert(i);
+					cout << "Plan contains lower case version of action " << htn->taskNames[i] << ", so I am taking it." << endl;
+                	found = true;
+	        	    break;
+				}		
+			}
         }
         if (!found) {
             cout << "task name not found: " << line << endl;
