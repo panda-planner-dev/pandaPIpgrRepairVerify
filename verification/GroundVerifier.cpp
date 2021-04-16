@@ -32,6 +32,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     }
 
     unordered_map<string, int>* taskNameMapping = new unordered_map<string, int>;
+    set<int> technicalActions;
     for (int i = 0; i < htn->numActions; i++) {
 #ifndef NDEBUG
         if (taskNameMapping->find(htn->taskNames[i]) != taskNameMapping->end()) {
@@ -40,6 +41,10 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         }
 #endif
         taskNameMapping->insert({htn->taskNames[i], i});
+
+        if (htn->taskNames[i].rfind("__") == 0) { // technical actions start with two underscores
+            technicalActions.insert(i);
+        }
     }
 
     // generate set of distinct actions and sequence of plan steps
@@ -107,11 +112,8 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     for (int action : distinctActions) {
         fringe.push_back(action);
     }
-
-    for (int action = 0; action < htn->numActions; action++) {
-        if (htn->taskNames[action].rfind("__") == 0) { // these actions start with two underscores
-            fringe.push_back(action);
-        }
+    for (int action : technicalActions) {
+        fringe.push_back(action);
     }
 
     while (!fringe.empty()) {
@@ -133,6 +135,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         cout << "Verification problem proven UNSOLVABLE via reachability analysis." << endl;
         exit(0);
     }
+    delete[] methodST;
 
     /*
      * top-down reachability
@@ -172,8 +175,15 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     cout << "- writing verify problem" << endl;
     // prepare things
     int numNewBits = prefix.size() + 2;
+    for(auto iter = technicalActions.begin(); iter != technicalActions.end();) {
+        int a = *iter;
+        if (tdReachableT->find(a) == tdReachableT->end()) {
+            iter = technicalActions.erase(iter);
+        } else {
+            ++iter;
+        }
+    }
 
-    set<int> technicalActions;
     for (int t : *tdReachableT) {
         string actionName = htn->taskNames[t];
 	 	if (htn->taskNames[t].rfind("__") == 0 && t < htn->numActions) { // these actions start with two underscores
@@ -190,10 +200,8 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
 
     map<int, int> old2new;
     int current = prefix.size();
-    for (int i = 0; i < htn->numActions; i++) {
-        if (technicalActions.find(i) != technicalActions.end()) {
-            old2new[i] = current++;
-        }
+    for (int i : technicalActions) {
+        old2new[i] = current++;
     }
     for (int i = htn->numActions; i < htn->numTasks; i++) {
         if (tdReachableT->find(i) != tdReachableT->end()) {
