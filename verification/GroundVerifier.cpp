@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include "GroundVerifier.h"
 #include <cassert>
+#include <algorithm>
 
 void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     //
@@ -44,14 +45,40 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     // generate set of distinct actions and sequence of plan steps
     vector<int> prefix;
     set<int> distinctActions;
+    bool usinglowercase = false;
     for (int i = 0; i < plan.size(); i++) {
         line = plan[i];
+        if (usinglowercase) {
+            transform(line.begin(), line.end(), line.begin(), [](unsigned char c){ if (c == '-') return int('_'); return tolower(c); });
+        }
         if (line.rfind(';') == 0) continue; // skip comments
         line = line.substr(1, line.length() - 2);
         if (line.rfind("epsilon") == 0) continue; // skip epsilon actions from TOAD
 
         auto iter = taskNameMapping->find(line);
         if (iter == taskNameMapping->end()) {
+            // try with lower case
+            cout << "Did not find action \"" << line << "\", trying lower case." << endl;
+            taskNameMapping->clear();
+            for (int i = 0; i < htn->numActions; i++) {
+                string name = htn->taskNames[i];
+                transform(name.begin(), name.end(), name.begin(), [](unsigned char c){ if (c == '-') return int('_'); return tolower(c); });
+                if (taskNameMapping->find(htn->taskNames[i]) != taskNameMapping->end()) {
+                    cout << "Found two actions with same name" << endl;
+                    exit(-1);
+                }
+                taskNameMapping->insert({name, i});
+            }
+            transform(line.begin(), line.end(), line.begin(), [](unsigned char c){ if (c == '-') return int('_'); return tolower(c); });
+            iter = taskNameMapping->find(line);
+            if (iter != taskNameMapping->end()) {
+                cout << "WARNING: Did not find mixed-case name of action, using lower case." << endl;
+                int i = iter->second;
+                prefix.push_back(i);
+                distinctActions.insert(i);
+                usinglowercase = true;
+                continue;
+            }
             cout << "task name not found: " << line << endl;
             exit(-1);
         } else {
