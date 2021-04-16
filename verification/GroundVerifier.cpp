@@ -94,84 +94,78 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
      * bottom-up reachability
      */
     cout << "- detecting unreachable tasks bottom-up" << endl;
-    set<int> *unreachableT = new set<int>;
-    set<int> *unreachableM = new set<int>;
-    set<int> *newlyUnrT = new set<int>;
-    set<int> *newlyUnrM = new set<int>;
 
-    // how many methods are available for each task?
-    int *mForT = new int[htn->numTasks];
-    for (int i = htn->numActions; i < htn->numTasks; i++) {
-        mForT[i] = htn->numMethodsForTask[i];
+    int* methodST = new int[htn->numMethods];
+    for (int i = 0; i < htn->numMethods; i++) {
+        methodST[i] = htn->numDistinctSTs[i];
+    }
+    unordered_set<int> buReachableT;
+    unordered_set<int> buReachableM;
+    vector<int> fringe;
+
+    for (int action : distinctActions) {
+        fringe.push_back(action);
     }
 
-    for (int a = 0; a < htn->numActions; a++) {
-
-        // technical actions should always be reachable, e.g. method preconditions
-        if (htn->taskNames[a].rfind("__") == 0) { // these actions start with two underscores
-            continue;
-        }
-
-        if (distinctActions.find(a) == distinctActions.end()) {
-            newlyUnrT->insert(a);
-            unreachableT->insert(a);
+    for (int action = 0; action < htn->numActions; action++) {
+        if (htn->taskNames[action].rfind("__") == 0) { // these actions start with two underscores
+            fringe.push_back(action);
         }
     }
-    while (!newlyUnrT->empty()) {
-        for (int t : *newlyUnrT) {
-            for (int mi = 0; mi < htn->stToMethodNum[t]; mi++) {
-                int m = htn->stToMethod[t][mi]; // this method contains an unreachable task -> not needed
-                if (unreachableM->find(m) == unreachableM->end()) {
-                    newlyUnrM->insert(m);
-                    unreachableM->insert(m);
+
+    while (!fringe.empty()) {
+        int t = fringe.back();
+        fringe.pop_back();
+        for (int i = 0 ; i < htn->stToMethodNum[t]; i++) {
+            int m = htn->stToMethod[t][i];
+            if (--methodST[m] == 0) {
+                buReachableM.insert(m);
+                int t = htn->decomposedTask[m];
+                if (buReachableT.find(t) == buReachableT.end()) {
+                    buReachableT.insert(t);
+                    fringe.push_back(t);
                 }
             }
         }
-        newlyUnrT->clear();
-        for (int m : *newlyUnrM) {
-            int dt = htn->decomposedTask[m];
-            mForT[dt]--;
-            if (mForT[dt] == 0) { // when there is no method left for a certain task, the task is not needed
-                newlyUnrT->insert(dt);
-                unreachableT->insert(dt);
-            }
-        }
-        newlyUnrM->clear();
     }
-    delete[] mForT;
+    if (buReachableT.find(htn->initialTask) == buReachableT.end()) {
+        cout << "Verification problem proven UNSOLVABLE via reachability analysis." << endl;
+        exit(0);
+    }
 
     /*
      * top-down reachability
      */
     cout << "- detecting top-down reachable tasks" << endl;
-    set<int> *reachableT = new set<int>;
-    set<int> *reachableM = new set<int>;
-    vector<int> fringe;
+    set<int> *tdReachableT = new set<int>;
+    set<int> *tdReachableM = new set<int>;
+    fringe.clear();
     fringe.push_back(htn->initialTask);
-    reachableT->insert(htn->initialTask);
+    tdReachableT->insert(htn->initialTask);
     while (!fringe.empty()) {
         int t = fringe.back();
         fringe.pop_back();
-        if (unreachableT->find(t) != unreachableT->end())
+        if (buReachableT.find(t) == buReachableT.end())
             continue;
         for (int i = 0; i < htn->numMethodsForTask[t]; i++) {
             int m = htn->taskToMethods[t][i];
-            if (unreachableM->find(m) != unreachableM->end())
+            if (buReachableM.find(m) == buReachableM.end())
                 continue;
-            reachableM->insert(m);
+            tdReachableM->insert(m);
             for (int j = 0; j < htn->numSubTasks[m]; j++) {
                 int subt = htn->subTasks[m][j];
-                if (reachableT->find(subt) == reachableT->end()) {
-                    reachableT->insert(subt);
+                if (tdReachableT->find(subt) == tdReachableT->end()) {
+                    tdReachableT->insert(subt);
                     fringe.push_back(subt);
                 }
             }
         }
     }
-
-    if (reachableT->find(htn->initialTask) == reachableT->end()) {
-        cout << "Verification problem proven UNSOLVABLE via reachability analysis." << endl;
-        exit(0);
+    for (int action : distinctActions) {
+        if (tdReachableT->find(action) == tdReachableT->end()) {
+            cout << "Verification problem proven UNSOLVABLE via reachability analysis." << endl;
+            exit(0);
+        }
     }
 
     cout << "- writing verify problem" << endl;
@@ -179,7 +173,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     int numNewBits = prefix.size() + 2;
 
     set<int> technicalActions;
-    for (int t : *reachableT) {
+    for (int t : *tdReachableT) {
         string actionName = htn->taskNames[t];
 	 	if (htn->taskNames[t].rfind("__") == 0 && t < htn->numActions) { // these actions start with two underscores
             technicalActions.insert(t);
@@ -201,7 +195,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         }
     }
     for (int i = htn->numActions; i < htn->numTasks; i++) {
-        if (reachableT->find(i) != reachableT->end()) {
+        if (tdReachableT->find(i) != tdReachableT->end()) {
             old2new[i] = current++;
         }
     }
@@ -276,7 +270,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     fOut << last - 1 << " -1" << endl;
 
     fOut << endl << ";; tasks (primitive and abstract)" << endl;
-    int numTasks = reachableT->size() + prefix.size();
+    int numTasks = tdReachableT->size() + prefix.size();
     fOut << numTasks << endl;
     int check = 0;
     for (int i = 0; i < prefix.size(); i++) {
@@ -288,7 +282,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
 		check++;
     }
     for (int i = htn->numActions; i < htn->numTasks; i++) {
-        if (reachableT->find(i) != reachableT->end()) {
+        if (tdReachableT->find(i) != tdReachableT->end()) {
             fOut << "1 " << htn->taskNames[i] << endl;
             check++;
         }
@@ -306,11 +300,11 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     fOut << old2new[htn->initialTask] << endl;
 
     fOut << endl << ";; methods" << endl;
-    int numMethods = reachableM->size() + prefix.size();
+    int numMethods = tdReachableM->size() + prefix.size();
     fOut << numMethods << endl;
     check = 0;
     for (int i = 0; i < htn->numMethods; i++) {
-        if (reachableM->find(i) != reachableM->end()) {
+        if (tdReachableM->find(i) != tdReachableM->end()) {
             fOut << htn->methodNames[i] << endl;
             fOut << old2new[htn->decomposedTask[i]] << endl;
             for (int j = 0; j < htn->numSubTasks[i]; j++) {
