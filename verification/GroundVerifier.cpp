@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <map>
+#include <unordered_map>
 #include "GroundVerifier.h"
 #include <cassert>
 
@@ -11,15 +12,6 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     //
     // read plan
     //
-
-    for (int i = 0; i < htn->numTasks; i++) {
-        for (int j = i + 1; j < htn->numTasks; j++) {
-            if (htn->taskNames[i] == htn->taskNames[j]) {
-                cout << "Found two actions with same name" << endl;
-                exit(-1);
-            }
-        }
-    }
 
     std::ifstream fIn(sasPlan);
 
@@ -38,6 +30,17 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         plan.push_back(line);
     }
 
+    unordered_map<string, int>* taskNameMapping = new unordered_map<string, int>;
+    for (int i = 0; i < htn->numActions; i++) {
+#ifndef NDEBUG
+        if (taskNameMapping->find(htn->taskNames[i]) != taskNameMapping->end()) {
+            cout << "Found two actions with same name" << endl;
+            exit(-1);
+        }
+#endif
+        taskNameMapping->insert({htn->taskNames[i], i});
+    }
+
     // generate set of distinct actions and sequence of plan steps
     vector<int> prefix;
     set<int> distinctActions;
@@ -47,20 +50,17 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         line = line.substr(1, line.length() - 2);
         if (line.rfind("epsilon") == 0) continue; // skip epsilon actions from TOAD
 
-        bool found = false;
-        for (int i = 0; i < htn->numTasks; i++) {
-            if (line.compare(htn->taskNames[i]) == 0) {
-                prefix.push_back(i);
-                distinctActions.insert(i);
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
+        auto iter = taskNameMapping->find(line);
+        if (iter == taskNameMapping->end()) {
             cout << "task name not found: " << line << endl;
             exit(-1);
+        } else {
+            int i = iter->second;
+            prefix.push_back(i);
+            distinctActions.insert(i);
         }
     }
+    delete taskNameMapping;
     fIn.close();
 
     /*
@@ -142,7 +142,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         }
     }
 
-    if(reachableT->find(htn->initialTask) == reachableT->end()) {
+    if (reachableT->find(htn->initialTask) == reachableT->end()) {
         cout << "Verification problem proven UNSOLVABLE via reachability analysis." << endl;
         exit(0);
     }
