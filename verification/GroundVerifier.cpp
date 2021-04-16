@@ -35,7 +35,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     for (int i = 0; i < htn->numActions; i++) {
 #ifndef NDEBUG
         if (taskNameMapping->find(htn->taskNames[i]) != taskNameMapping->end()) {
-            cout << "Found two actions with same name" << endl;
+            cout << "ERROR: Found two actions with same name" << endl;
             exit(-1);
         }
 #endif
@@ -58,13 +58,13 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         auto iter = taskNameMapping->find(line);
         if (iter == taskNameMapping->end()) {
             // try with lower case
-            cout << "Did not find action \"" << line << "\", trying lower case." << endl;
+            cout << "- Did not find action \"" << line << "\", trying lower case." << endl;
             taskNameMapping->clear();
             for (int i = 0; i < htn->numActions; i++) {
                 string name = htn->taskNames[i];
                 transform(name.begin(), name.end(), name.begin(), [](unsigned char c){ if (c == '-') return int('_'); return tolower(c); });
                 if (taskNameMapping->find(htn->taskNames[i]) != taskNameMapping->end()) {
-                    cout << "Found two actions with same name" << endl;
+                    cout << "ERROR: Found two actions with same name" << endl;
                     exit(-1);
                 }
                 taskNameMapping->insert({name, i});
@@ -79,7 +79,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
                 usinglowercase = true;
                 continue;
             }
-            cout << "task name not found: " << line << endl;
+            cout << "ERROR: task name not found: " << line << endl;
             exit(-1);
         } else {
             int i = iter->second;
@@ -103,6 +103,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     unordered_set<int> buReachableM;
     vector<int> fringe;
 
+    fringe.reserve(distinctActions.size());
     for (int action : distinctActions) {
         fringe.push_back(action);
     }
