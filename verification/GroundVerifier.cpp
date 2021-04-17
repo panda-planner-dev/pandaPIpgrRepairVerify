@@ -8,6 +8,7 @@
 #include "GroundVerifier.h"
 #include <cassert>
 #include <algorithm>
+#include <list>
 
 void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     //
@@ -95,6 +96,83 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     delete taskNameMapping;
     fIn.close();
 
+    list<int> techWithAdd;
+    for (int a : technicalActions) {
+        if (htn->numAdds[a] > 0) {
+            techWithAdd.push_back(a);
+        }
+    }
+    cout << "- detecting reachable technical actions" << endl;
+    if (techWithAdd.empty()) {
+        cout << "- using exact states." << endl;
+        unordered_set<int> state;
+        for (int i = 0; i < htn->s0Size; i++) {
+            state.insert(htn->s0List[i]);
+        }
+        list<int> unapplicable;
+        for (int a : technicalActions) {
+            if (!isAppliable(htn, state, a)) {
+                unapplicable.push_back(a);
+            }
+        }
+        for (int a : prefix) {
+            for (int j = 0; j < htn->numDels[a]; j++) {
+                state.erase(htn->delLists[a][j]);
+            }
+            for (int j = 0; j < htn->numAdds[a]; j++) {
+                state.insert(htn->addLists[a][j]);
+            }
+            for (int j = 0; j < unapplicable.size(); j++) {
+                int a2 = unapplicable.front();
+                unapplicable.pop_front();
+                if (!isAppliable(htn, state, a2)) {
+                   unapplicable.push_back(a2);
+                }
+            }
+        }
+        cout << "- pruning " << unapplicable.size() << " from " << technicalActions.size() << " technical actions." << endl;
+        for (int a : unapplicable) {
+            technicalActions.erase(a);
+        }
+    } else {
+        cout << "- using delete-relaxed states." << endl;
+        unordered_set<int> state;
+        for (int i = 0; i < htn->s0Size; i++) {
+            state.insert(htn->s0List[i]);
+        }
+        for (int a : distinctActions) {
+            for (int j = 0; j < htn->numAdds[a]; j++) {
+                state.insert(htn->addLists[a][j]);
+            }
+        }
+        bool changed = true;
+        while (changed) {
+            changed = false;
+            for (int i = 0; i  < techWithAdd.size(); i++) {
+                int a = techWithAdd.front();
+                techWithAdd.pop_front();
+                if (isAppliable(htn, state, a)) {
+                    changed = true;
+                    for (int j = 0; j < htn->numAdds[a]; j++) {
+                        state.insert(htn->addLists[a][j]);
+                    }
+                } else {
+                    techWithAdd.push_back(a);
+                }
+            }
+        }
+        for (int a : techWithAdd) {
+            technicalActions.erase(a);
+        }
+        for (auto iter = technicalActions.begin(); iter != technicalActions.end();) {
+            int a = *iter;
+            if (!isAppliable(htn, state, a)) {
+               iter = technicalActions.erase(iter);
+            } else {
+                iter++;
+            }
+        }
+    }
     /*
      * bottom-up reachability
      */
@@ -340,6 +418,15 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     assert(check == numMethods);
 
     fOut.close();
+}
+
+bool GroundVerifier::isAppliable(const Model *htn, unordered_set<int> &state, int a) const {
+    for (int j = 0; j < htn->numPrecs[a]; j++) {
+        if (state.find(htn->precLists[a][j]) == state.end()) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void GroundVerifier::writeAction(Model *htn, ofstream &fOut, int iAction, int pFrom, int pTo) {
