@@ -102,7 +102,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
             techWithAdd.push_back(a);
         }
     }
-    cout << "- detecting reachable technical actions" << endl;
+    cout << "- detecting unreachable technical actions" << endl;
     if (techWithAdd.empty()) {
         cout << "- using exact states." << endl;
         unordered_set<int> state;
