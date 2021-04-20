@@ -111,7 +111,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         }
         list<int> unapplicable;
         for (int a : technicalActions) {
-            if (!isAppliable(htn, state, a)) {
+            if (!isApplicable(htn, state, a)) {
                 unapplicable.push_back(a);
             }
         }
@@ -122,10 +122,10 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
             for (int j = 0; j < htn->numAdds[a]; j++) {
                 state.insert(htn->addLists[a][j]);
             }
-            for (int j = 0; j < unapplicable.size(); j++) {
+            for (int j = 0; j <= unapplicable.size(); j++) {
                 int a2 = unapplicable.front();
                 unapplicable.pop_front();
-                if (!isAppliable(htn, state, a2)) {
+                if (!isApplicable(htn, state, a2)) {
                    unapplicable.push_back(a2);
                 }
             }
@@ -148,10 +148,10 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         bool changed = true;
         while (changed) {
             changed = false;
-            for (int i = 0; i  < techWithAdd.size(); i++) {
+            for (int i = 0; i  <= techWithAdd.size(); i++) {
                 int a = techWithAdd.front();
                 techWithAdd.pop_front();
-                if (isAppliable(htn, state, a)) {
+                if (isApplicable(htn, state, a)) {
                     changed = true;
                     for (int j = 0; j < htn->numAdds[a]; j++) {
                         state.insert(htn->addLists[a][j]);
@@ -166,7 +166,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         }
         for (auto iter = technicalActions.begin(); iter != technicalActions.end();) {
             int a = *iter;
-            if (!isAppliable(htn, state, a)) {
+            if (!isApplicable(htn, state, a)) {
                iter = technicalActions.erase(iter);
             } else {
                 iter++;
@@ -420,7 +420,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     fOut.close();
 }
 
-bool GroundVerifier::isAppliable(const Model *htn, unordered_set<int> &state, int a) const {
+bool GroundVerifier::isApplicable(const Model *htn, unordered_set<int> &state, int a) const {
     for (int j = 0; j < htn->numPrecs[a]; j++) {
         if (state.find(htn->precLists[a][j]) == state.end()) {
             return false;

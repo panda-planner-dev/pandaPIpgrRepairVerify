@@ -15,7 +15,7 @@ public:
 
     void writeAction(Model *pModel, ofstream& ofstream, int iAction, int pFrom, int last1);
 
-    bool isAppliable(const Model *htn, unordered_set<int> &state, int a) const;
+    bool isApplicable(const Model *htn, unordered_set<int> &state, int a) const;
 };
 
 
