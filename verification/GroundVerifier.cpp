@@ -122,7 +122,8 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
             for (int j = 0; j < htn->numAdds[a]; j++) {
                 state.insert(htn->addLists[a][j]);
             }
-            for (int j = 0; j <= unapplicable.size(); j++) {
+            int size = unapplicable.size();
+            for (int j = 0; j < size; j++) {
                 int a2 = unapplicable.front();
                 unapplicable.pop_front();
                 if (!isApplicable(htn, state, a2)) {
@@ -148,7 +149,8 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         bool changed = true;
         while (changed) {
             changed = false;
-            for (int i = 0; i  <= techWithAdd.size(); i++) {
+            int size = techWithAdd.size();
+            for (int i = 0; i  < size; i++) {
                 int a = techWithAdd.front();
                 techWithAdd.pop_front();
                 if (isApplicable(htn, state, a)) {
