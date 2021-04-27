@@ -54,3 +54,18 @@ For running the verification, you have to do the following -- assuming that the 
 ```
 
 If the planner returns `Proven unsolvable`, the given sequence is not a plan, if it finds a solution, the found plan is a witness for the decomposition of the given action sequence (when artificial decomposition are removed).
+
+
+## Pre-Compiled Singularity Container
+A pre-compiled version of the verifier (including the necessary parser, grounder, and search engine) is (available)[https://gki.informatik.uni-freiburg.de/~behnkeg/panda-verify.sif].
+To run it, create a new (temporary) directory.
+Put your domain file and your problem file into this directory.
+Further create a file in this directory containing your plan.
+You further need singularity (version 3.5 or above).
+To run the verifier go to the created directory and run the following command (substituting file names are approriate):
+
+```
+singularity run -H $(pwd) -C ../../panda-verify.sif domain.hddl pfile01.hddl plan.txt 1800 8000 42
+```
+
+(1800 is the timelimit in seconds, 8000 the memory limit -- which is ignored by the verifier, and 42 the random seed).
