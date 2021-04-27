@@ -57,7 +57,7 @@ If the planner returns `Proven unsolvable`, the given sequence is not a plan, if
 
 
 ## Pre-Compiled Singularity Container
-A pre-compiled version of the verifier (including the necessary parser, grounder, and search engine) is (available)[https://gki.informatik.uni-freiburg.de/~behnkeg/panda-verify.sif].
+A pre-compiled version of the verifier (including the necessary parser, grounder, and search engine) is [available](https://gki.informatik.uni-freiburg.de/~behnkeg/panda-verify.sif).
 To run it, create a new (temporary) directory.
 Put your domain file and your problem file into this directory.
 Further create a file in this directory containing your plan.
