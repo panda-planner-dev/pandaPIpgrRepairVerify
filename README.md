@@ -1,5 +1,5 @@
 
-# HTN Plan Verification As Planning
+# HTN Plan Verification as Planning
 
 This repository contains code to verify HTN plans. It needs two files as input:
 
@@ -13,7 +13,7 @@ If you use the code, please cite the following paper:
 
     @inproceedings{Hoeller22,
       author    = {Daniel H{\"{o}}ller and Julia Wichlacz and Pascal Bercher and Gregor Behnke},
-      title     = {Compiling HTN Plan Verification Problems into HTN Planning Problems},
+      title     = {Compiling {HTN} Plan Verification Problems into {HTN} Planning Problems},
       booktitle = {Proceedings of the 32nd International Conference on Automated Planning and Scheduling (ICAPS)},
       publisher = {{AAAI} Press},
       year      = {2022}
