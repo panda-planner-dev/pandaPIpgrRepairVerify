@@ -195,6 +195,18 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     for (int action : technicalActions) {
         fringe.push_back(action);
     }
+    bool writeDummy = false;
+    for (int m = 0; m < htn->numMethods; m++) {
+        if (htn->numSubTasks[m] == 0) {
+            int t = htn->decomposedTask[m];
+            if (buReachableT.find(t) == buReachableT.end()) {
+                buReachableT.insert(t);
+                fringe.push_back(t);
+                buReachableM.insert(m);
+                writeDummy = true; // need to add a dummy task to empty methods
+            }
+        }
+    }
 
     while (!fringe.empty()) {
         int t = fringe.back();
@@ -283,6 +295,10 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     for (int i : technicalActions) {
         old2new[i] = current++;
     }
+    int dummyTaskID = -1;
+    if (writeDummy) {
+        dummyTaskID =  current++; // the dummy task is inserted after the original actions
+    }
     for (int i = htn->numActions; i < htn->numTasks; i++) {
         if (tdReachableT->find(i) != tdReachableT->end()) {
             old2new[i] = current++;
@@ -338,14 +354,20 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     }
 
     fOut << endl << ";; Actions" << endl;
-    fOut << (prefix.size() + technicalActions.size()) << endl;
+    int numActions = prefix.size() + technicalActions.size();
+    if (writeDummy) {
+        numActions++;
+    }
+    fOut << (numActions) << endl;
     for (int i = 0; i < prefix.size(); i++) {
         writeAction(htn, fOut, prefix[i], first + i, first + i + 1);
     }
     for (int t : technicalActions) {
         writeAction(htn, fOut, t, -1, -1);
     }
-
+    if (writeDummy) {
+        fOut << "1\n-1\n-1\n-1\n";
+    }
     fOut << endl << ";; initial state" << endl;
     for (int i = 0; i < htn->s0Size; i++) {
         fOut << htn->s0List[i] << " ";
@@ -360,6 +382,9 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
 
     fOut << endl << ";; tasks (primitive and abstract)" << endl;
     int numTasks = tdReachableT->size() + prefix.size();
+    if (writeDummy) {
+        numTasks++;
+    }
     fOut << numTasks << endl;
     int check = 0;
     for (int i = 0; i < prefix.size(); i++) {
@@ -369,6 +394,10 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     for (int t : technicalActions) {
         fOut << "0 " << htn->taskNames[t] << endl;
 		check++;
+    }
+    if (writeDummy) {
+        fOut << "0 EPSILONTASK[]" << endl;
+        check++;
     }
     for (int i = htn->numActions; i < htn->numTasks; i++) {
         if (tdReachableT->find(i) != tdReachableT->end()) {
@@ -396,8 +425,12 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
         if (tdReachableM->find(i) != tdReachableM->end()) {
             fOut << htn->methodNames[i] << endl;
             fOut << old2new[htn->decomposedTask[i]] << endl;
-            for (int j = 0; j < htn->numSubTasks[i]; j++) {
-                fOut << old2new[htn->subTasks[i][j]] << " ";
+            if (htn->numSubTasks[i] == 0) {
+                fOut << dummyTaskID << " ";
+            } else {
+                for (int j = 0; j < htn->numSubTasks[i]; j++) {
+                    fOut << old2new[htn->subTasks[i][j]] << " ";
+                }
             }
             fOut << "-1" << endl;
             for (int j = 0; j < htn->numOrderings[i]; j++) {
