@@ -1,7 +1,7 @@
 
 # HTN Plan Verification as Planning
 
-This repository contains code to verify HTN plans. I.e., it decides whether or not a given sequence of actions is a solution for a given HTN planning problem. It needs two files as input:
+This repository contains code to verify HTN plans. I.e., to decide whether or not a given sequence of actions is a solution for a given HTN planning problem. It needs two files as input:
 
 * A file with the HTN model grounded by the PANDA grounder
 * A file with the solution to verify
