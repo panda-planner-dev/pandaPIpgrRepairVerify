@@ -381,7 +381,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan, bool techVi
     fOut << last - 1 << " -1" << endl;
 
     fOut << endl << ";; tasks (primitive and abstract)" << endl;
-    int numTasks = tdReachableT->size() + distinctActions.size();
+    int numTasks = tdReachableT->size() + prefix.size();
     if (writeDummy) {
         numTasks++;
     }
