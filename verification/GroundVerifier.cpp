@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <list>
 
-void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
+void GroundVerifier::verify(progression::Model *htn, string sasPlan, bool techVisible) {
     //
     // read plan
     //
@@ -43,7 +43,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
 #endif
         taskNameMapping->insert({htn->taskNames[i], i});
 
-        if (htn->taskNames[i].rfind("__") == 0) { // technical actions start with two underscores
+        if ((!techVisible) && (htn->taskNames[i].rfind("__") == 0)) { // technical actions start with two underscores
             technicalActions.insert(i);
         }
     }
@@ -66,7 +66,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
             // try with lower case
             cout << "- Did not find action \"" << line << "\", trying lower case." << endl;
             taskNameMapping->clear();
-            for (int i = 0; i < htn->numActions; i++) {
+            for (int i = 0; i < htn->numActions; i++) { // todo: kill this
                 string name = htn->taskNames[i];
                 transform(name.begin(), name.end(), name.begin(), [](unsigned char c){ if (c == '-') return int('_'); return tolower(c); });
                 if (taskNameMapping->find(htn->taskNames[i]) != taskNameMapping->end()) {
@@ -278,7 +278,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
 
     for (int t : *tdReachableT) {
         string actionName = htn->taskNames[t];
-	 	if (htn->taskNames[t].rfind("__") == 0 && t < htn->numActions) { // these actions start with two underscores
+	 	if ((!techVisible) && (htn->taskNames[t].rfind("__") == 0) && (t < htn->numActions)) { // these actions start with two underscores
             technicalActions.insert(t);
         }
     }
@@ -381,7 +381,7 @@ void GroundVerifier::verify(progression::Model *htn, string sasPlan) {
     fOut << last - 1 << " -1" << endl;
 
     fOut << endl << ";; tasks (primitive and abstract)" << endl;
-    int numTasks = tdReachableT->size() + prefix.size();
+    int numTasks = tdReachableT->size() + distinctActions.size();
     if (writeDummy) {
         numTasks++;
     }

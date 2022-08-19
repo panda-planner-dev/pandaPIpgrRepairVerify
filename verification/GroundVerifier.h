@@ -11,7 +11,7 @@
 class GroundVerifier {
 
 public:
-    void verify(progression::Model *htn, string sasPlan);
+    void verify(progression::Model *htn, string sasPlan, bool techVisible);
 
     void writeAction(Model *pModel, ofstream& ofstream, int iAction, int pFrom, int last1);
 

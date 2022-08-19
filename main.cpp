@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     cout << "Creating verify problem." << endl;
     GroundVerifier v;
     string sasPlan = argv[2];
-    v.verify(htn, sasPlan);
+    v.verify(htn, sasPlan, false);
     gettimeofday(&tp, NULL);
     endT = tp.tv_sec * 1000 + tp.tv_usec / 1000;
     cout << "- [timeCreatingVerifyproblem=" << (endT - startT) << "]" << endl;
