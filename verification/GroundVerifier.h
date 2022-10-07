@@ -8,14 +8,31 @@
 
 #include "../htnModel/Model.h"
 
+enum encodingType {Verification, PGRfo, PGRpo, Repair};
+
 class GroundVerifier {
 
 public:
-    void verify(progression::Model *htn, string sasPlan, bool techVisible);
+    void prefixEncoding(Model *htn, string sasPlan, encodingType enc, bool techVisible, int i);
 
-    void writeAction(Model *pModel, ofstream& ofstream, int iAction, int pFrom, int last1);
+    void writeAction(ofstream &fOut, int iAction, int pFrom, int pTo);
 
     bool isApplicable(const Model *htn, unordered_set<int> &state, int a) const;
+
+    bool readSolution(const string &filename, vector<string> &plan_out, int stopAfter);
+
+    encodingType encode = Verification;
+
+    Model *htn;
+
+
+    void doVerifyPruning(set<int> &technicalActions, vector<int> &prefix, set<int> &distinctActions) const;
+
+    bool bottomUpReachability(set<int> &technicalActions, set<int> &distinctActions, unordered_set<int> &buReachableT, unordered_set<int> &buReachableM);
+
+    void topDownReachability(unordered_set<int> &buReachableT, unordered_set<int> &buReachableM, set<int> &tdReachableT, set<int> &tdReachableM);
+
+    void cleanStr(string &action) const;
 };
 
 
