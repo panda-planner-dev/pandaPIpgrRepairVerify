@@ -1,6 +1,6 @@
 #include <iostream>
 #include "htnModel/Model.h"
-#include "verification/GroundVerifier.h"
+#include "prefEncoding/GroundPrefixEncoding.h"
 #include <vector>
 #include <sys/time.h>
 
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
     startT = endT;
 
     cout << "Creating problem." << endl;
-    GroundVerifier v;
+    GroundPrefixEncoding v;
     string solution = argv[3];
     v.prefixEncoding(htn, solution, encodingTask, techVisible, stopAfter);
     gettimeofday(&tp, NULL);

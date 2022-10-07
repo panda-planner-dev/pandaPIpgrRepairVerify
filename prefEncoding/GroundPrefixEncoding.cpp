@@ -5,13 +5,13 @@
 #include <fstream>
 #include <map>
 #include <unordered_map>
-#include "GroundVerifier.h"
+#include "GroundPrefixEncoding.h"
 #include <cassert>
 #include <algorithm>
 #include <list>
 
 
-void GroundVerifier::prefixEncoding(Model *htn, string sasPlan, encodingType enc, bool techVisible, int stopAfter) {
+void GroundPrefixEncoding::prefixEncoding(Model *htn, string sasPlan, encodingType enc, bool techVisible, int stopAfter) {
     //
     // read plan
     //
@@ -361,8 +361,8 @@ void GroundVerifier::prefixEncoding(Model *htn, string sasPlan, encodingType enc
     fOut.close();
 }
 
-void GroundVerifier::topDownReachability(unordered_set<int> &buReachableT, unordered_set<int> &buReachableM,
-                                         set<int> &tdReachableT, set<int> &tdReachableM) {
+void GroundPrefixEncoding::topDownReachability(unordered_set<int> &buReachableT, unordered_set<int> &buReachableM,
+                                               set<int> &tdReachableT, set<int> &tdReachableM) {
     cout << "- detecting top-down reachable tasks" << endl;
     vector<int> fringe;
     fringe.push_back(htn->initialTask);
@@ -388,7 +388,7 @@ void GroundVerifier::topDownReachability(unordered_set<int> &buReachableT, unord
     }
 }
 
-bool GroundVerifier::bottomUpReachability(set<int> &technicalActions, set<int> &distinctActions, unordered_set<int> &buReachableT, unordered_set<int> &buReachableM) {
+bool GroundPrefixEncoding::bottomUpReachability(set<int> &technicalActions, set<int> &distinctActions, unordered_set<int> &buReachableT, unordered_set<int> &buReachableM) {
     cout << "- detecting unreachable tasks bottom-up" << endl;
     int* methodST = new int[htn->numMethods];
     for (int i = 0; i < htn->numMethods; i++) {
@@ -447,7 +447,7 @@ bool GroundVerifier::bottomUpReachability(set<int> &technicalActions, set<int> &
     return writeDummy;
 }
 
-void GroundVerifier::doVerifyPruning(set<int> &technicalActions, vector<int> &prefix, set<int> &distinctActions) const {
+void GroundPrefixEncoding::doVerifyPruning(set<int> &technicalActions, vector<int> &prefix, set<int> &distinctActions) const {
     list<int> techWithAdd;
     for (int a: technicalActions) {
         if (htn->numAdds[a] > 0) {
@@ -531,7 +531,7 @@ void GroundVerifier::doVerifyPruning(set<int> &technicalActions, vector<int> &pr
     }
 }
 
-bool GroundVerifier::readSolution(const string &filename, vector<string> &plan_out, int stopafter) {
+bool GroundPrefixEncoding::readSolution(const string &filename, vector<string> &plan_out, int stopafter) {
     ifstream fIn(filename);
     string line;
     int linesadded = 0;
@@ -573,7 +573,7 @@ bool GroundVerifier::readSolution(const string &filename, vector<string> &plan_o
     return fileEnd;
 }
 
-void GroundVerifier::cleanStr(string &action) const {
+void GroundPrefixEncoding::cleanStr(string &action) const {
     int pos = action.find(" ");
     action.replace(pos, 1, "[");
     pos = action.length() - 1;
@@ -585,7 +585,7 @@ void GroundVerifier::cleanStr(string &action) const {
     }
 }
 
-bool GroundVerifier::isApplicable(const Model *htn, unordered_set<int> &state, int a) const {
+bool GroundPrefixEncoding::isApplicable(const Model *htn, unordered_set<int> &state, int a) const {
     for (int j = 0; j < htn->numPrecs[a]; j++) {
         if (state.find(htn->precLists[a][j]) == state.end()) {
             return false;
@@ -594,7 +594,7 @@ bool GroundVerifier::isApplicable(const Model *htn, unordered_set<int> &state, i
     return true;
 }
 
-void GroundVerifier::writeAction(ofstream &fOut, int iAction, int pFrom, int pTo) {
+void GroundPrefixEncoding::writeAction(ofstream &fOut, int iAction, int pFrom, int pTo) {
     fOut << htn->actionCosts[iAction] << endl;
     for (int j = 0; j < htn->numPrecs[iAction]; j++) {
         fOut << htn->precLists[iAction][j] << " ";

@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(htnPrefixEncoding main.cpp
         htnModel/Model.cpp htnModel/ProgressionNetwork.cpp
-        verification/GroundVerifier.cpp verification/GroundVerifier.h
+        prefEncoding/GroundPrefixEncoding.cpp prefEncoding/GroundPrefixEncoding.h
         utils/noDelIntSet.h utils/FlexIntStack.h utils/IntUtil.h utils/StringUtil.h
         utils/noDelIntSet.cpp utils/FlexIntStack.cpp utils/IntUtil.cpp utils/StringUtil.cpp
         )

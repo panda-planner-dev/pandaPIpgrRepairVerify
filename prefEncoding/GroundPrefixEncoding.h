@@ -10,7 +10,7 @@
 
 enum encodingType {Verification, PGRfo, PGRpo, Repair};
 
-class GroundVerifier {
+class GroundPrefixEncoding {
 
 public:
     void prefixEncoding(Model *htn, string sasPlan, encodingType enc, bool techVisible, int i);
