@@ -338,7 +338,7 @@ void GroundPrefixEncoding::prefixEncoding(Model *htn, string sasPlan, encodingTy
     // methods from new abstract tasks to prefix copies
     for (int i = 0; i < prefix.size(); i++) {
         int a = prefix[i];
-        fOut << "__<method2pref" << i << ">" << htn->taskNames[a] << endl;
+        fOut << "_!<method2pref" << i << ">" << htn->taskNames[a] << endl;
         fOut << prim2abs[a] << endl;
         fOut << i << " -1" << endl;
         fOut << "-1" << endl; // ordering relations
@@ -348,7 +348,7 @@ void GroundPrefixEncoding::prefixEncoding(Model *htn, string sasPlan, encodingTy
     // methods from new abstract tasks to original actions
     if ((encode == PGRfo) || (encode == PGRpo) || (encode == Repair)) {
         for (int a: distPrefActions) {
-            fOut << "__<method2org>" << htn->taskNames[a] << endl;
+            fOut << "_!<method2org>" << htn->taskNames[a] << endl;
             fOut << prim2abs[a] << endl; // this is the mapping from the action to the new abstract task
             fOut << distinctToTypeT[a] << " -1"
                  << endl; // this is the mapping to the original (non-prefix) copy of the action
