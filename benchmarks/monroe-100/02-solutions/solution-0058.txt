@@ -1,0 +1,1 @@
+(call roch-water)(navegate-vehicle wcrew1 wtruck1 airport marketplace)(climb-in ht2 ttruck1 marketplace)(navegate-vehicle tdriver1 ttruck1 airport marketplace)(climb-out ht2 ttruck1 airport)(place-cones ht2)(navegate-vehicle ccrew1 backhoe1 airport texaco1)(dig backhoe1 airport)(replace-pipe wcrew1 airport strong)(fill-in backhoe1 airport)(pickup-cones wcrew1)(call roch-water)

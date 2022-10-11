@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 brighton-dump henrietta-dump)(call rge)(remove-wire pcrew1 brighton-dump)(string-wire pcrew1 brighton-dump)(call rge)

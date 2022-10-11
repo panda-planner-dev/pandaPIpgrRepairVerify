@@ -1,0 +1,1 @@
+(navegate-vehicle tdriver1 dtruck1 marketplace rochester-general)(climb-in pdriver1 dtruck1 marketplace)(navegate-vehicle tdriver1 dtruck1 brighton-high marketplace)(climb-out pdriver1 dtruck1 brighton-high)(navegate-snowplow pdriver1 plow1 pittsford-plaza)(engage-plow pdriver1 plow1)(navegate-snowplow pdriver1 plow1 brighton-dump)(disengage-plow pdriver1 plow1)

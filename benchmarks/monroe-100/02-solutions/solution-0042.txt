@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 henrietta-dump pittsford-plaza)(climb-in ht1 van1 henrietta-dump)(navegate-vehicle pcrew1 van1 brighton-dump henrietta-dump)(climb-out ht1 van1 brighton-dump)(place-cones ht1)(navegate-vehicle ttdriver1 ttruck1 brighton-dump henrietta-dump)(hook-to-tow-truck ttruck1 vehicle-215589)(unhook-from-tow-truck ttruck1 vehicle-215589)(pickup-cones ht1)

@@ -1,0 +1,1 @@
+(navegate-vehicle pu1 pvan1 brighton-high henrietta-dump)(climb-in pdriver1 pvan1 brighton-high)(navegate-vehicle pu1 pvan1 strong brighton-high)(climb-out pdriver1 pvan1 strong)(navegate-snowplow pdriver1 plow2 texaco1)(engage-plow pdriver1 plow2)(navegate-snowplow pdriver1 plow2 twelve-corners)(disengage-plow pdriver1 plow2)

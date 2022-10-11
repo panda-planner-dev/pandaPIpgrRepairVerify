@@ -1,0 +1,1 @@
+(navegate-vehicle pu2 pvan2 park-ridge rochester-general)(climb-in person-191382 pvan2 park-ridge)(navegate-vehicle pu2 pvan2 strong park-ridge)(climb-out person-191382 pvan2 strong)(treat-in-hospital person-191382 strong)

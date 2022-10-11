@@ -1,0 +1,1 @@
+(navegate-vehicle wcrew1 wtruck1 mendon-pond strong)(place-cones wcrew1)(navegate-vehicle emt1 amb1 brighton-dump park-ridge)(climb-in ht1 amb1 brighton-dump)(navegate-vehicle emt1 amb1 mendon-pond brighton-dump)(climb-out ht1 amb1 mendon-pond)(clean-hazard ht1 mendon-pond marketplace)(navegate-vehicle pcrew1 van1 mendon-pond texaco1)(pickup-cones pcrew1)

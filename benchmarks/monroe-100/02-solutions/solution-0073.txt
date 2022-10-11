@@ -1,0 +1,1 @@
+(pump-gas-into texaco1 gen1)(pay texaco1)(navegate-vehicle tdriver1 dtruck1 texaco1 rochester-general)(navegate-vehicle wcrew1 wtruck1 texaco1 brighton-dump)(load wcrew1 gen1 dtruck1 texaco1)(navegate-vehicle tdriver1 dtruck1 airport texaco1)(unload pcrew1 gen1 dtruck1 airport)(hook-up gen1 airport)(turn-on gen1)(turn-on-heat airport)

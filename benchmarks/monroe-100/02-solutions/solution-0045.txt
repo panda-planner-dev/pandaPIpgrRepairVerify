@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 henrietta-dump marketplace)(climb-in pdriver2 van1 henrietta-dump)(navegate-vehicle pcrew1 van1 rochester-general henrietta-dump)(climb-out pdriver2 van1 rochester-general)(navegate-snowplow pdriver2 plow2 mendon-pond)(engage-plow pdriver2 plow2)(navegate-snowplow pdriver2 plow2 marketplace)(disengage-plow pdriver2 plow2)

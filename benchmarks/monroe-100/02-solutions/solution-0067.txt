@@ -1,0 +1,1 @@
+(climb-in person-349616 pvan1 pittsford-plaza)(navegate-vehicle pu1 pvan1 rochester-general pittsford-plaza)(climb-out person-349616 pvan1 rochester-general)(treat-in-hospital person-349616 rochester-general)

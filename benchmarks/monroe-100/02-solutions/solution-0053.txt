@@ -1,0 +1,1 @@
+(navegate-vehicle ttdriver1 ttruck1 henrietta-dump twelve-corners)(climb-in person-286817 ttruck1 henrietta-dump)(navegate-vehicle ttdriver1 ttruck1 strong henrietta-dump)(climb-out person-286817 ttruck1 strong)(treat-in-hospital person-286817 strong)

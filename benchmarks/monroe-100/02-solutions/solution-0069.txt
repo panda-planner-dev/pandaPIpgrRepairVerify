@@ -1,0 +1,1 @@
+(navegate-vehicle ccrew1 backhoe1 brighton-high pittsford-plaza)(climb-in pdriver2 backhoe1 brighton-high)(navegate-vehicle ccrew1 backhoe1 henrietta-dump brighton-high)(climb-out pdriver2 backhoe1 henrietta-dump)(navegate-snowplow pdriver2 plow1 airport)(engage-plow pdriver2 plow1)(navegate-snowplow pdriver2 plow1 rochester-general)(disengage-plow pdriver2 plow1)

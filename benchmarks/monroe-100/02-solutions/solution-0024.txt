@@ -1,0 +1,1 @@
+(climb-in pdriver1 backhoe1 texaco1)(navegate-vehicle ccrew1 backhoe1 mendon-pond texaco1)(climb-out pdriver1 backhoe1 mendon-pond)(navegate-snowplow pdriver1 plow1 texaco1)(engage-plow pdriver1 plow1)(navegate-snowplow pdriver1 plow1 park-ridge)(disengage-plow pdriver1 plow1)

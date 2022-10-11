@@ -1,0 +1,1 @@
+(call police-chief)(call ebs)(navegate-vehicle pu2 pvan2 airport mendon-pond)(navegate-vehicle pu1 pvan1 airport brighton-high)(set-up-barricades pu2)(set-up-barricades pu1)

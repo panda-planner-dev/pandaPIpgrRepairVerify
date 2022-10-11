@@ -1,0 +1,1 @@
+(add water pot1)(cook water pot1)(add rice pot1)(add water pot2)(cook water pot2)(add pea pot2)(add oil pan1)(cook rice pot1)(flatten beef)(sprinkle flour beef)(sprinkle salt beef)(sprinkle breadcrumbs beef)(sprinkle pepper beef)(sprinkle eggs beef)(cook pea pot2)(roast beef pan1)

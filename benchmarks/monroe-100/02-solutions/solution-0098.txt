@@ -1,0 +1,1 @@
+(place-cones tcrew1)(hook-to-tow-truck ttruck1 vehicle-555305)(navegate-vehicle ttdriver1 ttruck1 henrietta-dump texaco1)(unhook-from-tow-truck ttruck1 vehicle-555305)(navegate-vehicle ccrew1 backhoe1 brighton-dump airport)(climb-in ht1 backhoe1 brighton-dump)(navegate-vehicle ccrew1 backhoe1 texaco1 brighton-dump)(climb-out ht1 backhoe1 texaco1)(pickup-cones ht1)

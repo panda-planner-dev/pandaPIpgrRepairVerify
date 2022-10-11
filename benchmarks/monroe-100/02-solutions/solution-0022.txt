@@ -1,0 +1,1 @@
+(navegate-vehicle pu2 pvan2 marketplace brighton-dump)(climb-in person-121967 pvan2 marketplace)(navegate-vehicle pu1 pvan2 park-ridge marketplace)(climb-out person-121967 pvan2 park-ridge)(treat-in-hospital person-121967 park-ridge)

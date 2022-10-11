@@ -1,0 +1,1 @@
+(navegate-vehicle ttdriver1 ttruck1 mendon-pond marketplace)(climb-in pdriver1 ttruck1 mendon-pond)(navegate-vehicle ttdriver1 ttruck1 twelve-corners mendon-pond)(climb-out pdriver1 ttruck1 twelve-corners)(navegate-snowplow pdriver1 plow1 twelve-corners)(engage-plow pdriver1 plow1)(navegate-snowplow pdriver1 plow1 pittsford-plaza)(disengage-plow pdriver1 plow1)

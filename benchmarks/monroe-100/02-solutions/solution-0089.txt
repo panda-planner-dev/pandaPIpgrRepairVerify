@@ -1,0 +1,1 @@
+(call police-chief)(call ebs)(navegate-vehicle pu2 pvan2 mendon-pond rochester-general)(climb-in pu1 pvan2 mendon-pond)(navegate-vehicle pu2 pvan2 strong mendon-pond)(climb-out pu1 pvan2 strong)(set-up-barricades pu1)(set-up-barricades pu2)

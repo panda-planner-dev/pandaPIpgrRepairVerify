@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 rochester-general mendon-pond)(climb-in pdriver1 van1 rochester-general)(navegate-vehicle pcrew1 van1 airport rochester-general)(climb-out pdriver1 van1 airport)(navegate-snowplow pdriver1 plow1 strong)(engage-plow pdriver1 plow1)(navegate-snowplow pdriver1 plow1 texaco1)(disengage-plow pdriver1 plow1)

@@ -1,0 +1,1 @@
+(call ebs)(call police-chief)(navegate-vehicle pu2 pvan2 twelve-corners texaco1)(navegate-vehicle pu1 pvan1 twelve-corners henrietta-dump)(set-up-barricades pu2)(set-up-barricades pu1)

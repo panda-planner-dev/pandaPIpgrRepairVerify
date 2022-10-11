@@ -1,0 +1,1 @@
+(navegate-vehicle pu1 pvan1 park-ridge texaco1)(climb-in pdriver1 pvan1 park-ridge)(navegate-vehicle pu1 pvan1 strong park-ridge)(climb-out pdriver1 pvan1 strong)(navegate-snowplow pdriver1 plow2 rochester-general)(engage-plow pdriver1 plow2)(navegate-snowplow pdriver1 plow2 strong)(disengage-plow pdriver1 plow2)
