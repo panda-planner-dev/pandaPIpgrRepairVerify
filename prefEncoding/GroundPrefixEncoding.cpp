@@ -209,7 +209,12 @@ void GroundPrefixEncoding::prefixEncoding(Model *htn, string sasPlan, encodingTy
     for (int i = 0; i < htn->numVars; i++) {
         fOut << htn->firstIndex[i] << " " << htn->lastIndex[i] << " " << htn->varNames[i] << endl;
     }
-    int first = htn->lastIndex[htn->numVars - 1] + 1;
+    int first;
+    if (htn->numVars == 0) {
+        first = 0;
+    } else {
+        first = htn->lastIndex[htn->numVars - 1] + 1;
+    }
     int last = first + numNewBits - 1;
     fOut << first << " " << last << " prefixOrdering" << endl;
 
