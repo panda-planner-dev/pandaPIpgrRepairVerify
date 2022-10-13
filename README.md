@@ -2,9 +2,9 @@
 # HTN Prefix Encoding
 
 This repository contains code to solve the following problems by compiling them to HTN planning problems:
-* Plan and Goal Recognition (PGR) – i.e., the problem to identify the goal and next steps of an observed agent based on a sequence of actions the agent has executed. In our case, we use HTN models to describe the agents' behavior.
-* Plan Repair in the context on HTN planning – i.e., to find a new solution that fulfill certain properties given the execution of the first solution failed.
-* Verification of HTN plans – i.e., to decide whether or not a given sequence of actions is a solution for a given HTN planning problem. It needs two files as input.
+* Plan and Goal Recognition (PGR) – i.e., the task to identify the goal and next steps of an observed agent based on a sequence of actions the agent has executed. In our case, we use HTN models to describe the agents' behavior.
+* Plan Repair in the context of HTN planning – i.e., the task to find a new solution that fulfill certain properties given the execution of a first solution failed.
+* Verification of HTN plans – i.e., the task to decide whether or not a given sequence of actions is a solution for a given HTN planning problem.
 
 More technically, the implemented transformation restricts the set of solutions to an HTN planning problem to the subset of solutions that start with a certain prefix (or – in case of partially observable PGR – includes a certain prefix).
 
@@ -37,13 +37,73 @@ The different approaches have been presented in the following publications, whic
       year      = {2018}
     }
 
+
+## How to use the code
+
 The general process is the same for solving all these problems:
 * The HTN model needs to be grounded using the PANDA grounder
 * You need to provide a second file with the prefix to enforce (i.e., the observed actions of the agent, the plan to repair, or the solution to verify)
 * The transformation creates a new problem file using the format used by PANDA to represent its input
 * This file must be passed to a planner that supports this format as its input (e.g., a planner from the PANDA framework)
 
-A more detailed description of the command line input is printed when the executable is started without parameters.
+All components of the PANDA system can be found under the following adress:
+[git repository of the PANDA framwork](https://panda-planner-dev.github.io/)
 
-So far, the approach has been used by the TOAD system (see [1]).
+Make sure to compile the following software components:
+* the PANDA parser
+* the PANDA grounder
+* some planner (e.g. one from the PANDA framework)
+* the code in this repository
+
+A script on how to use these components is given in the repository ("example-pgr/pgr.sh").
+
+## How to use the PGR benchmarks
+
+There are two benchmark sets for plan and goal recognition given in the repository. The "Kitchen" domain was created by us. It is described in the ICTAI'18 paper given above. The second one is the "Monroe" domain. It was *not* created by us, we just translated it into the HDDL format. Please make sure to *give proper credit* to the authors.
+
+    @inproceedings{Blaylock05,
+      author    = {Nate Blaylock and James F. Allen},
+      title     = {Generating Artificial Corpora for Plan Recognition},
+      booktitle = {Proceedings of the 10th International Conference on User Modeling ({UM})},
+      publisher = {Springer},
+      pages     = {179--188},
+      year      = {2005}
+    }
+
+The benchmark directories have three subdirectories, one with the domain, one with the problems, and one with the solutions.
+
+### Add generic top level task
+If you open one of the problem files, you will find a line starting with "(:htn :tasks" (here the first of the Monroe domain):
+
+    ;; (:htn :tasks (tlt)) ;; generic tlt
+    (:htn :tasks (clear-road-wreck pittsford-plaza airport)) ;; org. tlt
+
+This defines the initial task of the HTN planning problem. As you can see, it is set to the task that shall be recognized. As first step, you need to replace them with the generic initial task, e.g.:
+
+    (:htn :tasks (tlt)) ;; generic tlt
+    ;; (:htn :tasks (clear-road-wreck pittsford-plaza airport)) ;; org. tlt
+
+### Delete observations
+If you want to do your evaluate in the partically observable setting, delete some of the observations.
+
+### Run Recognition
+Adapt the script ("example-pgr/pgr.sh") to your needs and start it.
+
+### Extract Results
+The planner decomposes the intial task into the top level task (the "goal" of the agent). The PANDA preprocessing incorporates several transformations that make the results less human readable. You can undo them using the PANDA parser:
+
+./pandaPIparser -c log-of-planner-run.txt human-readable.plan
+
+In the file "human.readable.plan", you will find something like the following:
+
+    ...
+    root 1311
+    ...
+    1311 clear-road-wreck pittsford-plaza airport ...
+    ...
+
+This lines provide you with the top level task choosen by the planner.
+
+# Usage of the code
+If you use our code, I would be happy to know about it. So far, it has been used in the TOAD system:
  1. Daniel Höller. Translating Totally Ordered HTN Planning Problems to Classical Planning Problems Using Regular Approximation of Context-Free Languages. In: Proceedings of the 31st International Conference on Automated Planning and Scheduling (ICAPS). AAAI Press, 2021.
