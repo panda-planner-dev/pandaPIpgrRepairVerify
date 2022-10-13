@@ -59,7 +59,7 @@ A script on how to use these components is given in the repository ("example-pgr
 
 ## How to use the PGR benchmarks
 
-There are two benchmark sets for plan and goal recognition given in the repository. The "Kitchen" domain was created by us. It is described in the ICTAI'18 paper given above. The second one is the "Monroe" domain. It was *not* created by us, we just translated it into the HDDL format. Please make sure to *give proper credit* to the authors.
+There are two benchmark sets for plan and goal recognition given in the repository. The "Kitchen" domain was created by us. It is described in the ICTAI'18 paper given above. The second one is the "Monroe" domain. It was **not** created by us, we just translated it into the HDDL format. Please make sure to **give proper credit** to the original authors.
 
     @inproceedings{Blaylock05,
       author    = {Nate Blaylock and James F. Allen},
