@@ -52,7 +52,7 @@ All components of the PANDA system can be found under the following adress:
 Make sure to compile the following software components:
 * the PANDA parser
 * the PANDA grounder
-* some planner (e.g. one from the PANDA framework)
+* some planner, e.g. one from the PANDA framework. Both the progression-based and the SAT-based planners might be promissing (depending on your model)
 * the code in this repository
 
 A script on how to use these components is given in the repository ("example-pgr/pgr.sh").
@@ -87,7 +87,7 @@ This defines the initial task of the HTN planning problem. As you can see, it is
 If you want to do your evaluate in the partically observable setting, delete some of the observations.
 
 ### Run Recognition
-Adapt the script ("example-pgr/pgr.sh") to your needs and start it.
+Adapt the script ("example-pgr/pgr.sh") to your needs and start it. The new problems are written next to the solution file that is provided.
 
 ### Extract Results
 The planner decomposes the intial task into the top level task (the "goal" of the agent). The PANDA preprocessing incorporates several transformations that make the results less human readable. You can undo them using the PANDA parser:
@@ -97,12 +97,17 @@ The planner decomposes the intial task into the top level task (the "goal" of th
 In the file "human.readable.plan", you will find something like the following:
 
     ...
-    root 1311
+    root 198
     ...
-    1311 clear-road-wreck pittsford-plaza airport ...
+    198 tlt  -> m-tlt-clear-road-wreck 1916
+    ...
+    1916 clear-road-wreck pittsford-plaza airport -> m-clear-road-wreck 202 1915 1753
     ...
 
-This lines provide you with the top level task choosen by the planner.
+These lines provide you with the top level task choosen by the planner. Read it the following way:
+* The task with id 198 is the initial (root) task.
+* This task is named "tlt" (as we provided in the last step). The task is decomposed using the method "m-tlt-clear-road-wreck" into the task with the id 1916
+* The task with id 1916 is "clear-road-wreck pittsford-plaza airport"
 
 # Usage of the code
 If you use our code, I would be happy to know about it. So far, it has been used in the TOAD system:
