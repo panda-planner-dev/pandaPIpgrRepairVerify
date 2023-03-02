@@ -1,0 +1,73 @@
+project(to-verifier)
+
+
+# commands for the util library
+file(GLOB UTIL_SOURCE_FILES 
+    "util/src/*.cpp"
+    "../htnModel/Model.cpp" 
+    "../htnModel/ProgressionNetwork.cpp"
+    "../utils/*.cpp"
+)
+
+add_library(util
+    ${UTIL_SOURCE_FILES}
+)
+
+target_include_directories(util
+    PUBLIC
+        ${VerificationAsPlanning_SOURCE_DIR}/htnModel
+        ${VerificationAsPlanning_SOURCE_DIR}/utils
+        util/include
+)
+
+# commands for the TO verifier
+file(GLOB TO_SOURCE_FILES 
+    "to_verifier/src/*.cpp" 
+)
+
+add_library(to_verifier
+    ${TO_SOURCE_FILES}
+)
+
+target_include_directories(to_verifier
+    PUBLIC
+        ${PROJECT_SOURCE_DIR}/to_verifier/include
+        ${VerificationAsPlanning_SOURCE_DIR}/htnModel
+        ${PROJECT_SOURCE_DIR}/include
+)
+
+target_link_libraries(to_verifier
+    PUBLIC
+        util
+)
+
+# commands for command-line arguments
+find_program(GENGETOPT gengetopt)
+
+add_custom_command(
+	OUTPUT ${PROJECT_SOURCE_DIR}/cmdline.h ${PROJECT_SOURCE_DIR}/cmdline.c
+	COMMAND gengetopt --include-getopt --default-optional --unamed-opts -i options.ggo
+	DEPENDS options.ggo
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	COMMENT "Generating getopt parser code (cmdline.{h,c}) ..."
+	VERBATIM
+)
+
+add_custom_target(cmd
+    DEPENDS cmdline.h cmdline.c
+)
+
+file(GLOB VERIFIER_SOUCE_FILES "src/*.cpp")
+
+add_executable(run_verifier ${VERIFIER_SOUCE_FILES} cmdline.c cmdline.h)
+
+target_link_libraries(run_verifier
+	PUBLIC
+		to_verifier
+)
+
+target_include_directories(run_verifier
+	PUBLIC
+		${PROJECT_SOURCE_DIR}
+		${PROJECT_SOURCE_DIR}/include
+)

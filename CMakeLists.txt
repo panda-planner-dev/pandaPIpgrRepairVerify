@@ -17,3 +17,5 @@ add_executable(verificationAsPlanning main.cpp
 
 target_compile_options(verificationAsPlanning PUBLIC ${compiler_flags})
 target_link_options(verificationAsPlanning  PUBLIC ${linker_flags})
+
+add_subdirectory(to-verifier)
