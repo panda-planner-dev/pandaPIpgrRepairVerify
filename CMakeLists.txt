@@ -17,3 +17,5 @@ add_executable(htnPrefixEncoding main.cpp
 
 target_compile_options(htnPrefixEncoding PUBLIC ${compiler_flags})
 target_link_options(htnPrefixEncoding  PUBLIC ${linker_flags})
+
+add_subdirectory(to-verifier)
