@@ -1,0 +1,1 @@
+(navegate-vehicle ccrew1 backhoe1 marketplace brighton-high)(place-cones ccrew1)(navegate-vehicle ttdriver1 ttruck1 marketplace brighton-high)(hook-to-tow-truck ttruck1 vehicle-211077)(navegate-vehicle ttdriver1 ttruck1 henrietta-dump marketplace)(unhook-from-tow-truck ttruck1 vehicle-211077)(pickup-cones ccrew1)

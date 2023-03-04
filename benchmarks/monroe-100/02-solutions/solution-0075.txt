@@ -1,0 +1,1 @@
+(navegate-vehicle ccrew1 backhoe1 mendon-pond pittsford-plaza)(place-cones ccrew1)(climb-in tcrew1 ttruck1 henrietta-dump)(navegate-vehicle tdriver1 ttruck1 mendon-pond henrietta-dump)(climb-out tcrew1 ttruck1 mendon-pond)(cut-tree tcrew1 tree-372134)(carry-blockage-out-of-way ccrew1 tree-372134)(pickup-cones tcrew1)

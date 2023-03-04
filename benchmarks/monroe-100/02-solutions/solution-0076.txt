@@ -1,0 +1,1 @@
+(navegate-vehicle pu2 pvan2 twelve-corners henrietta-dump)(climb-in pdriver1 pvan2 twelve-corners)(navegate-vehicle pu2 pvan2 airport twelve-corners)(climb-out pdriver1 pvan2 airport)(navegate-snowplow pdriver1 plow2 strong)(engage-plow pdriver1 plow2)(navegate-snowplow pdriver1 plow2 park-ridge)(disengage-plow pdriver1 plow2)

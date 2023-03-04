@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 marketplace brighton-dump)(call rge)(remove-wire pcrew1 marketplace)(string-wire pcrew1 marketplace)(call rge)

@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 airport pittsford-plaza)(call rge)(remove-wire pcrew1 airport)(string-wire pcrew1 airport)(call rge)

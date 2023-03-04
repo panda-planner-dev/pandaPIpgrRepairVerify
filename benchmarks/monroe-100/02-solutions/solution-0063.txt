@@ -1,0 +1,1 @@
+(navegate-vehicle ccrew1 backhoe1 mendon-pond strong)(place-cones ccrew1)(navegate-vehicle ttdriver1 ttruck1 mendon-pond park-ridge)(hook-to-tow-truck ttruck1 vehicle-333479)(navegate-vehicle ttdriver1 ttruck1 brighton-dump mendon-pond)(unhook-from-tow-truck ttruck1 vehicle-333479)(navegate-vehicle wcrew1 wtruck1 mendon-pond brighton-dump)(pickup-cones wcrew1)

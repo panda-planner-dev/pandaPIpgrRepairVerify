@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 henrietta-dump marketplace)(place-cones pcrew1)(navegate-vehicle ttdriver1 ttruck1 henrietta-dump park-ridge)(hook-to-tow-truck ttruck1 vehicle-39633)(navegate-vehicle ttdriver1 ttruck1 brighton-dump henrietta-dump)(unhook-from-tow-truck ttruck1 vehicle-39633)(navegate-vehicle wcrew1 wtruck1 henrietta-dump rochester-general)(pickup-cones wcrew1)

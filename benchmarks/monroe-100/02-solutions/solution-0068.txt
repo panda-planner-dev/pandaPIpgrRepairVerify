@@ -1,0 +1,1 @@
+(navegate-vehicle ccrew1 backhoe1 twelve-corners park-ridge)(climb-in person-352181 backhoe1 twelve-corners)(navegate-vehicle ccrew1 backhoe1 strong twelve-corners)(climb-out person-352181 backhoe1 strong)(treat-in-hospital person-352181 strong)

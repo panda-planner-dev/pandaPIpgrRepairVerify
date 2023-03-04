@@ -1,0 +1,1 @@
+(navegate-vehicle pu2 pvan2 airport rochester-general)(climb-in person-47851 pvan2 airport)(navegate-vehicle pu1 pvan2 rochester-general airport)(climb-out person-47851 pvan2 rochester-general)(treat-in-hospital person-47851 rochester-general)

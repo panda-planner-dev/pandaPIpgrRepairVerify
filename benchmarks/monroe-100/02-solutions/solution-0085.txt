@@ -1,0 +1,1 @@
+(call police-chief)(call ebs)(navegate-vehicle pu2 pvan2 henrietta-dump brighton-dump)(navegate-vehicle pu1 pvan1 henrietta-dump strong)(set-up-barricades pu2)(set-up-barricades pu1)

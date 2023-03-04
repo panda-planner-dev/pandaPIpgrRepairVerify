@@ -1,0 +1,1 @@
+(navegate-vehicle pdriver2 plow1 park-ridge marketplace)(climb-in person-208195 plow1 park-ridge)(navegate-vehicle pdriver2 plow1 strong park-ridge)(climb-out person-208195 plow1 strong)(treat-in-hospital person-208195 strong)

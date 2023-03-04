@@ -1,0 +1,1 @@
+(navegate-vehicle pu1 pvan1 strong texaco1)(climb-in tcrew1 van1 park-ridge)(navegate-vehicle pcrew1 van1 strong park-ridge)(climb-out tcrew1 van1 strong)(place-cones tcrew1)(clean-hazard ht2 strong airport)(pickup-cones tcrew1)

@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 rochester-general airport)(place-cones pcrew1)(cut-tree tcrew1 tree-157943)(carry-blockage-out-of-way ht2 tree-157943)(pickup-cones pcrew1)

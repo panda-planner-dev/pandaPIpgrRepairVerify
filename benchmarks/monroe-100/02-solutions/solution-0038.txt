@@ -1,0 +1,1 @@
+(navegate-vehicle ttdriver1 ttruck1 texaco1 brighton-dump)(climb-in pdriver2 ttruck1 texaco1)(navegate-vehicle ttdriver1 ttruck1 henrietta-dump texaco1)(climb-out pdriver2 ttruck1 henrietta-dump)(navegate-snowplow pdriver2 plow1 texaco1)(engage-plow pdriver2 plow1)(navegate-snowplow pdriver2 plow1 pittsford-plaza)(disengage-plow pdriver2 plow1)

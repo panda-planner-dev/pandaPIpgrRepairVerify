@@ -1,0 +1,1 @@
+(skin potatoes)(add vanillaIce bowl1)(add water pot2)(heat raspberry)(add raspberry bowl1)(cook water pot2)(add pea pot2)(cook pea pot2)(add potatoes pot1)(add water pot1)(cook potatoes pot1)(wash chicken)(add chicken rt1)(add salt rt1)(add paprika rt1)(add oil rt1)(bake contentRT1 rt1)

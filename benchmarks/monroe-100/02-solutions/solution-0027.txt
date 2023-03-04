@@ -1,0 +1,1 @@
+(climb-in pdriver2 pvan2 brighton-high)(navegate-vehicle pu2 pvan2 airport brighton-high)(climb-out pdriver2 pvan2 airport)(navegate-snowplow pdriver2 plow1 brighton-dump)(engage-plow pdriver2 plow1)(navegate-snowplow pdriver2 plow1 henrietta-dump)(disengage-plow pdriver2 plow1)

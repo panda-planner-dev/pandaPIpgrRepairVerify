@@ -1,0 +1,1 @@
+(call ebs)(call police-chief)(navegate-vehicle pu1 pvan1 rochester-general strong)(navegate-vehicle pu1 pvan1 park-ridge rochester-general)(climb-in pu2 pvan1 park-ridge)(navegate-vehicle pu1 pvan1 rochester-general park-ridge)(climb-out pu2 pvan1 rochester-general)(set-up-barricades pu1)(set-up-barricades pu2)

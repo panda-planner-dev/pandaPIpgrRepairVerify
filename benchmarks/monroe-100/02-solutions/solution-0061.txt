@@ -1,0 +1,1 @@
+(climb-in pdriver2 bus1 rochester-general)(navegate-vehicle bdriver1 bus1 brighton-high rochester-general)(climb-out pdriver2 bus1 brighton-high)(navegate-snowplow pdriver2 plow1 marketplace)(engage-plow pdriver2 plow1)(navegate-snowplow pdriver2 plow1 brighton-dump)(disengage-plow pdriver2 plow1)

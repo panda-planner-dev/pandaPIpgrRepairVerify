@@ -1,0 +1,1 @@
+(navegate-vehicle tdriver1 plow2 twelve-corners henrietta-dump)(climb-in pdriver2 plow2 twelve-corners)(navegate-vehicle tdriver1 plow2 henrietta-dump twelve-corners)(climb-out pdriver2 plow2 henrietta-dump)(navegate-snowplow pdriver2 plow2 marketplace)(engage-plow pdriver2 plow2)(navegate-snowplow pdriver2 plow2 brighton-dump)(disengage-plow pdriver2 plow2)

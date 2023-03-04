@@ -1,0 +1,1 @@
+(navegate-vehicle tdriver1 dtruck1 strong rochester-general)(climb-in person-30029 dtruck1 strong)(navegate-vehicle tdriver1 dtruck1 park-ridge strong)(climb-out person-30029 dtruck1 park-ridge)(treat-in-hospital person-30029 park-ridge)

@@ -1,0 +1,1 @@
+(navegate-vehicle emt1 amb1 strong airport)(climb-in person-360030 amb1 strong)(navegate-vehicle emt1 amb1 park-ridge strong)(climb-out person-360030 amb1 park-ridge)(treat-in-hospital person-360030 park-ridge)

@@ -1,0 +1,1 @@
+(climb-in person-304668 backhoe1 park-ridge)(navegate-vehicle ccrew1 backhoe1 strong park-ridge)(climb-out person-304668 backhoe1 strong)(treat-in-hospital person-304668 strong)

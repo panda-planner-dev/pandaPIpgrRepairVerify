@@ -1,0 +1,1 @@
+(call police-chief)(call ebs)(navegate-vehicle pu1 pvan1 brighton-dump airport)(navegate-vehicle pu2 pvan2 brighton-dump texaco1)(set-up-barricades pu1)(set-up-barricades pu2)

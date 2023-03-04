@@ -1,0 +1,1 @@
+(skin potatoes)(add potatoes pot1)(add water pot1)(add water pot2)(cook water pot2)(add beans pot2)(add oil pan1)(cook potatoes pot1)(flatten beef)(sprinkle pepper beef)(sprinkle salt beef)(sprinkle flour beef)(sprinkle breadcrumbs beef)(sprinkle eggs beef)(cook beans pot2)(roast beef pan1)

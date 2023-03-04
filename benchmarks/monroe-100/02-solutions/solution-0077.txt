@@ -1,0 +1,1 @@
+(navegate-vehicle emt1 amb1 twelve-corners strong)(climb-in pdriver1 amb1 twelve-corners)(navegate-vehicle emt1 amb1 strong twelve-corners)(climb-out pdriver1 amb1 strong)(navegate-snowplow pdriver1 plow2 brighton-dump)(engage-plow pdriver1 plow2)(navegate-snowplow pdriver1 plow2 brighton-high)(disengage-plow pdriver1 plow2)

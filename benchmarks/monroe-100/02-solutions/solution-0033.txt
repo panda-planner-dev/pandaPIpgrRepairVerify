@@ -1,0 +1,1 @@
+(navegate-vehicle pcrew1 van1 texaco1 brighton-high)(climb-in person-189614 van1 texaco1)(navegate-vehicle pcrew1 van1 strong texaco1)(climb-out person-189614 van1 strong)(treat-in-hospital person-189614 strong)

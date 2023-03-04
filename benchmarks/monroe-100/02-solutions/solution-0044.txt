@@ -1,0 +1,1 @@
+(navegate-vehicle pu2 pvan2 twelve-corners brighton-dump)(climb-in pdriver2 pvan2 twelve-corners)(navegate-vehicle pu2 pvan2 marketplace twelve-corners)(climb-out pdriver2 pvan2 marketplace)(navegate-snowplow pdriver2 plow1 mendon-pond)(engage-plow pdriver2 plow1)(navegate-snowplow pdriver2 plow1 marketplace)(disengage-plow pdriver2 plow1)
