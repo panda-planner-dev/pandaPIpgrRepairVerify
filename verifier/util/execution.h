@@ -1,7 +1,7 @@
 #ifndef _execution_inc_h_
 #define _execution_inc_h_
 
-#include "../../../htnModel/Model.h"
+#include "Model.h"
 #include <boost/dynamic_bitset.hpp>
 
 class PlanExecution {

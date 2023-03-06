@@ -1,7 +1,7 @@
 #ifndef _mapping_inc_h_
 #define _mapping_inc_h_
 
-#include "../../../htnModel/Model.h"
+#include "Model.h"
 #include "mark.h"
 #include <unordered_map>
 

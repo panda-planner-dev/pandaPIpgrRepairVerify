@@ -1,4 +1,4 @@
-#include "../../../htnModel/Model.h"
+#include "Model.h"
 #include "execution.h"
 #include "graph.h"
 #include "mark.h"

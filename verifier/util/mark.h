@@ -1,7 +1,7 @@
 #ifndef _mark_inc_h_
 #define _mark_inc_h_
 
-#include "../../../htnModel/Model.h"
+#include "Model.h"
 #include "execution.h"
 #include <boost/dynamic_bitset.hpp>
 

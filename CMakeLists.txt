@@ -7,6 +7,7 @@ project(htnPrefixEncoding)
 
 set(CMAKE_CXX_STANDARD 14)
 
+add_subdirectory(verifier)
 
 add_executable(htnPrefixEncoding main.cpp
         htnModel/Model.cpp htnModel/ProgressionNetwork.cpp
@@ -14,8 +15,8 @@ add_executable(htnPrefixEncoding main.cpp
         utils/noDelIntSet.h utils/FlexIntStack.h utils/IntUtil.h utils/StringUtil.h
         utils/noDelIntSet.cpp utils/FlexIntStack.cpp utils/IntUtil.cpp utils/StringUtil.cpp
         )
-
+target_link_libraries(htnPrefixEncoding
+    PUBLIC
+        to_verifier)
 target_compile_options(htnPrefixEncoding PUBLIC ${compiler_flags})
 target_link_options(htnPrefixEncoding  PUBLIC ${linker_flags})
-
-add_subdirectory(to-verifier)

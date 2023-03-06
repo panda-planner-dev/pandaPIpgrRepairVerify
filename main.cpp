@@ -3,6 +3,7 @@
 #include "prefEncoding/GroundPrefixEncoding.h"
 #include <vector>
 #include <sys/time.h>
+#include "to_verifier.h"
 
 
 using namespace std;
@@ -38,6 +39,25 @@ int main(int argc, char *argv[]) {
         } else if (task.compare("verify-all") == 0) {
             encodingTask = Verification;
             techVisible = true;
+        } else if (task.compare("cyk") == 0) {
+            string htnFile = argv[2];
+            string planFile = argv[3];
+            std::clock_t beforeVerify = std::clock();
+            TOVerifier *verifier = new TOVerifier(htnFile, planFile); // delete in the future
+            // TODO: add the processor for selecting different verifier
+            std::clock_t afterVerify = std::clock();
+            double prepTime = 1000.0 * (afterVerify - beforeVerify) / CLOCKS_PER_SEC;
+            cout << "Information about the verification" << endl;
+            cout << "- Time for verifying the plan: " << prepTime << endl;
+            bool result = verifier->getResult();
+
+            if (result) {
+                cout << "The given plan is a solution" << endl;
+            }
+            else {
+                cout << "The given plan is not a solution" << endl;
+            }
+            exit(0);
         } else {
             printAndExit = true;
         }
