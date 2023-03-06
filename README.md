@@ -1,4 +1,4 @@
-# HTN Prefix Encoding
+# pandaPIpgrRepairVerify
 
 This repository contains code to solve the following problems by compiling them to HTN planning problems:
 * Plan and Goal Recognition (PGR) – i.e., the task to identify the goal and next steps of an observed agent based on a sequence of actions the agent has executed. In our case, we use HTN models to describe the agents' behavior.

@@ -63,14 +63,19 @@ int main(int argc, char *argv[]) {
         }
     }
     if (printAndExit) {
+		cout << "pandaPIpgrRepairVerify which includes the following abilities" << endl;
+		cout << "" << endl;
         cout << "HTN prefix encoding, which can be used for:" << endl;
         cout << "- plan and goal recognition as planning, fully observable setting [pgrfo]" << endl;
         cout << "- plan and goal recognition as planning, partially observable setting [pgrpo]" << endl;
         cout << "- plan repair as planning [repair]" << endl;
         cout << "- plan verification as planning [verify]" << endl;
         cout << "- plan verification as planning [verify-all], but with technical actions included in the sequence (e.g. used by TOAD)" << endl;
-        cout << "<executable> [pgrfo|pgrpo|repair|verify|verify-all] pandagrounding plan[-prefix]" << endl;
-        exit(-1);
+        cout << "<executable> [pgrfo|pgrpo|repair|verify|verify-all] path-to-the-grounded-model.sas plan[-prefix]" << endl;
+        cout << "" << endl;
+        cout << "Plan verification via CYK: [cyk]" << endl;
+		cout << "<executable> cyk path-to-the-grounded-model.sas path-to-the-plan" << endl;
+		exit(-1);
     }
 #ifndef NDEBUG
     cout << "You have compiled  without setting the NDEBUG flag. This will make it slow and should only be done for debug." << endl;
