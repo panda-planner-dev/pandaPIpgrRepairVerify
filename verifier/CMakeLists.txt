@@ -15,8 +15,11 @@ add_library(util
 
 target_include_directories(util
     PUBLIC
-        ${htnPrefixEncoding_SOURCE_DIR}/htnModel
-        ${htnPrefixEncoding_SOURCE_DIR}/utils
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/verifier/
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/to_verifier/
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/util
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/htnModel
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/utils
         util/
 )
 
@@ -31,9 +34,12 @@ add_library(to_verifier
 
 target_include_directories(to_verifier
     PUBLIC
-        ${PROJECT_SOURCE_DIR}/to_verifier/
-        ${htnPrefixEncoding_SOURCE_DIR}/htnModel
-        ${PROJECT_SOURCE_DIR}/
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/verifier/
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/to_verifier/
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/htnModel
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/utils
+        ${pandaPIpgrRepairVerify_SOURCE_DIR}/
+        to_verifier
 )
 
 target_link_libraries(to_verifier
