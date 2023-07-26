@@ -18,7 +18,7 @@ endif()
 list(APPEND compiler_flags -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -pedantic "$<$<CONFIG:DEBUG>:-Og;-ggdb3>" "$<$<CONFIG:RELEASE>:-O2>")
 IF ( MACOSX )
    list(APPEND linker_flags "$<$<CONFIG:RELEASE>:-flto>")
-ELSE
+ELSE()
    list(APPEND linker_flags "$<$<CONFIG:RELEASE>:-flto;-static;-static-libgcc>")
 ENDIF()
 
