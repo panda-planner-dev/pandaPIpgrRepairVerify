@@ -36,6 +36,16 @@ The different approaches have been presented in the following publications, whic
       year      = {2018}
     }
 
+## Build instructions
+
+To build this program run the following:
+
+```
+mkdir build
+cd build
+cmake ..
+make -j
+```
 
 ## How to use the code
 
