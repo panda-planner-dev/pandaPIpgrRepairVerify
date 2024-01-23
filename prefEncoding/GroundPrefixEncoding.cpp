@@ -271,8 +271,11 @@ void GroundPrefixEncoding::prefixEncoding(Model *htn, string sasPlan, encodingTy
     fOut << last - 1 << " -1" << endl;
 
     fOut << endl << ";; tasks (primitive and abstract)" << endl;
-    //int numTasks = tdReachableT.size() + prefix.size();
-    int numTasks = tdReachableT.size() + distPrefActions.size() + prefix.size();
+	int numTasks;
+    if (encode == Verification)
+		numTasks = tdReachableT.size() + prefix.size();
+	else
+    	tdReachableT.size() + distPrefActions.size() + prefix.size();
     // - reachable contains all tasks, i.e., the original actions
     // - for each distinct task in the prefix, there will be an additional abstract task
     // - for each task in the prefix, there will be an additional primitive action
@@ -303,7 +306,7 @@ void GroundPrefixEncoding::prefixEncoding(Model *htn, string sasPlan, encodingTy
         check++;
     }
     if (check != numTasks) {
-        cout << "ERROR: check sums note correct." << endl;
+        cout << "ERROR: check sums not correct." << endl;
         cout << "       number of actions " << check << " expected " << numTasks << endl;
         cout << "       creation of transformed problem failed." << endl;
         exit(-1);
@@ -541,12 +544,13 @@ bool GroundPrefixEncoding::readSolution(const string &filename, vector<string> &
     string line;
     int linesadded = 0;
     bool breakLoop = false;
-    if (stopafter > 0) {
+    if (stopafter > 0 || stopafter == -1) {
         while (getline(fIn, line)) {
             int i = line.find(")(");
             while (i != std::string::npos) { // split lines with multiple actions in it
                 string action = line.substr(0, i + 1);
-                line = line.substr(i + 1, line.length());
+				if (i+1 >= line.length()) line = "";
+				else line = line.substr(i + 1, line.length());
 
                 if (action.find("]") == std::string::npos) {
                     cleanStr(action);
@@ -561,7 +565,9 @@ bool GroundPrefixEncoding::readSolution(const string &filename, vector<string> &
             if (breakLoop) {
                 break;
             }
-            cleanStr(line);
+            if (line.find("]") == std::string::npos) {
+            	cleanStr(line);
+			}
             plan_out.push_back(line);
             if ((stopafter >= 0) && (++linesadded == stopafter)) {
                 break;
